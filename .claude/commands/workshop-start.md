@@ -239,25 +239,32 @@ This is how real developers work. And now YOU can do it too!
 
 🎮 **Your turn! Tell me what to change.**
 
-Just say it in plain English — like you would to a designer. Try one of these:
+Just say it in plain English — like you're briefing a designer. And don't hold back! Ask for BIG changes:
 
-**Easy changes to try:**
-- "Make the button bigger"
-- "Change the background to dark blue"
-- "Add a tagline under the title"
-- "Make the text larger"
+**🎨 Complete Redesigns:**
+- "Redesign this as a premium SaaS landing page with pricing tiers"
+- "Make this look like a Y Combinator startup — clean, bold, credible"
+- "Transform this into an editorial magazine style with big typography"
+- "Give me an Apple-style design — minimal, lots of whitespace, elegant"
 
-**Medium changes:**
-- "Add a features section with 3 cards"
-- "Put a navigation bar at the top"
-- "Add a footer with social links"
+**✨ Add Real Features:**
+- "Add a hero section with animated text that types out"
+- "Create a features grid with 6 cards and icons"
+- "Add a testimonials carousel with fake quotes"
+- "Build a pricing section with 3 tiers and a toggle for monthly/yearly"
 
-**Fun changes:**
-- "Add confetti when I click the button"
-- "Make it look more like Apple's website"
-- "Add a dark mode toggle"
+**🚀 Go Creative:**
+- "Make this feel like a Web3 product — dark, neon accents, futuristic"
+- "Add a bento grid layout like Linear or Raycast"
+- "Create a scroll-triggered animation where sections fade in"
+- "Add a floating navigation that appears when I scroll down"
 
-**What do you want to try?**
+**🎯 Your Actual Idea:**
+- "Build me a waitlist page for [your startup idea]"
+- "Create a portfolio landing page for a designer"
+- "Make a landing page for a mobile app with app store badges"
+
+**What do you want? Dream big — I'll build it live!**
 
 ---
 
