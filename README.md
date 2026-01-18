@@ -49,10 +49,12 @@ This project uses our approved tech stack:
 | Language | TypeScript |
 | Styling | Tailwind CSS |
 | Auth | Clerk |
-| Database | Convex |
+| Database | **Supabase** (beginner) or **Convex** (advanced) |
 | State | Zustand |
 | Forms | React Hook Form + Zod |
 | Animation | GSAP + Framer Motion |
+
+**Database Choice:** Supabase is easier to start (same as Lovable), but Convex is better long-term (real-time, type-safe). Pick based on your experience!
 
 See `CLAUDE.md` for complete guidelines.
 

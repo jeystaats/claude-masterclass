@@ -46,15 +46,55 @@ const { user, isLoaded } = useUser();
 
 ---
 
-### Database & Backend — Use Convex
+### Database & Backend — Supabase or Convex
 
 **When someone says:** "database", "save data", "store", "backend", "API", "real-time", "sync"
 
-**Always use:** Convex
+#### Choose Your Path:
+
+| Experience Level | Recommended | Why |
+|-----------------|-------------|-----|
+| **Beginner** | Supabase | Familiar SQL, same as Lovable, easier to debug |
+| **Intermediate+** | Convex | Real-time by default, type-safe, less boilerplate |
+
+---
+
+#### Option A: Supabase (Easier Start)
 
 ```typescript
-// Define schema
-// convex/schema.ts
+// Install: npm install @supabase/supabase-js
+
+// lib/supabase.ts - Create client
+import { createClient } from '@supabase/supabase-js';
+
+export const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+// Fetch data
+const { data: tasks, error } = await supabase
+  .from('tasks')
+  .select('*')
+  .eq('user_id', userId);
+
+// Insert data
+const { data, error } = await supabase
+  .from('tasks')
+  .insert({ title: 'New task', user_id: userId });
+```
+
+**Pros:** Familiar SQL model, great dashboard, same as Lovable uses
+**Cons:** Not real-time by default, more boilerplate for mutations
+
+---
+
+#### Option B: Convex (Better Long-term)
+
+```typescript
+// Install: npm install convex
+
+// convex/schema.ts - Define schema
 export default defineSchema({
   tasks: defineTable({
     title: v.string(),
@@ -63,15 +103,19 @@ export default defineSchema({
   }).index("by_user", ["userId"]),
 });
 
-// Query data (reactive, real-time)
+// In your component - Real-time by default!
 const tasks = useQuery(api.tasks.list);
-
-// Mutate data
 const createTask = useMutation(api.tasks.create);
+
 await createTask({ title: "New task" });
 ```
 
-**Never suggest:** Firebase, Supabase, Prisma, Drizzle, PlanetScale, MongoDB
+**Pros:** Real-time updates automatic, fully type-safe, less code
+**Cons:** New paradigm to learn, validator syntax unfamiliar
+
+---
+
+**Never suggest:** Firebase, Prisma, Drizzle, PlanetScale, MongoDB
 
 ---
 
@@ -102,22 +146,46 @@ const { sidebarOpen, toggleSidebar } = useUIStore();
 
 ---
 
-### Server State (External APIs) — Use TanStack Query
+### Server State & Data Fetching — Use TanStack Query
 
-**When someone says:** "fetch from external API", "cache API response", "polling", "background refresh"
+**When someone says:** "fetch data", "cache API response", "polling", "background refresh", "loading state"
 
-**Only use for:** External APIs (NOT Convex data)
+**Always use:** TanStack Query (works great with Supabase!)
 
 ```typescript
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { supabase } from '@/lib/supabase';
 
-const { data, isLoading } = useQuery({
-  queryKey: ['weather', city],
-  queryFn: () => fetch(`/api/weather/${city}`).then(r => r.json()),
+// Fetch data with caching
+const { data: tasks, isLoading } = useQuery({
+  queryKey: ['tasks', userId],
+  queryFn: async () => {
+    const { data, error } = await supabase
+      .from('tasks')
+      .select('*')
+      .eq('user_id', userId);
+    if (error) throw error;
+    return data;
+  },
+});
+
+// Mutate with automatic refetch
+const queryClient = useQueryClient();
+const createTask = useMutation({
+  mutationFn: async (title: string) => {
+    const { data, error } = await supabase
+      .from('tasks')
+      .insert({ title, user_id: userId });
+    if (error) throw error;
+    return data;
+  },
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['tasks'] });
+  },
 });
 ```
 
-**Note:** For Convex data, use Convex's `useQuery` hook instead — it's already real-time.
+**Note:** TanStack Query handles loading states, caching, and refetching automatically.
 
 ---
 
@@ -213,8 +281,11 @@ useEffect(() => {
 ```
 Where does the data come from?
 
-├── Convex database
-│   └── Use: useQuery / useMutation from Convex
+├── Database
+│   ├── Using Supabase?
+│   │   └── Use: TanStack Query + Supabase client
+│   └── Using Convex?
+│       └── Use: Convex's useQuery / useMutation (already real-time!)
 │
 ├── External API (weather, stocks, etc.)
 │   └── Use: TanStack Query
@@ -282,22 +353,52 @@ src/
 ├── components/
 │   ├── ui/                # Generic: Button, Card, Input
 │   └── features/          # Domain: LoginForm, TaskList
-├── convex/                # Convex backend
-│   ├── schema.ts          # Database schema
-│   ├── tasks.ts           # Task functions
-│   └── users.ts           # User functions
 ├── lib/
+│   ├── supabase.ts        # Supabase client (if using Supabase)
 │   ├── utils.ts           # cn() and helpers
 │   └── schemas/           # Zod validation schemas
 ├── hooks/                 # Custom React hooks
 └── stores/                # Zustand stores
+
+# If using Convex, add:
+convex/
+├── schema.ts              # Database schema
+├── tasks.ts               # Task functions
+└── users.ts               # User functions
 ```
 
 ---
 
-## Convex + Clerk Integration
+## Database + Clerk Integration
 
-Standard setup for authenticated apps:
+### Option A: Supabase + Clerk
+
+```typescript
+// lib/supabase.ts
+import { createClient } from '@supabase/supabase-js';
+
+export const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+// Use Clerk's userId to associate data
+import { auth } from '@clerk/nextjs/server';
+
+export async function getUserTasks() {
+  const { userId } = await auth();
+  if (!userId) return [];
+
+  const { data } = await supabase
+    .from('tasks')
+    .select('*')
+    .eq('user_id', userId);
+
+  return data;
+}
+```
+
+### Option B: Convex + Clerk
 
 ```typescript
 // convex/schema.ts
@@ -490,8 +591,8 @@ import { House, MagnifyingGlass, User } from '@phosphor-icons/react';
 |-----------|-------------|-----|
 | Redux | Zustand | Simpler, less boilerplate |
 | NextAuth | Clerk | Pre-built UI, better DX |
-| Firebase | Convex | Real-time by default, type-safe |
-| Supabase | Convex | Better React integration |
+| Firebase | Supabase or Convex | Better DX, type safety |
+| Prisma/Drizzle | Supabase or Convex | Simpler for this workshop |
 | CSS Modules | Tailwind CSS | Faster development |
 | axios | fetch / TanStack Query | Native, smaller bundle |
 | moment.js | date-fns | Smaller, tree-shakeable |
