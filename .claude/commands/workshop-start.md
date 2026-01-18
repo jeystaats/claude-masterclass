@@ -4,7 +4,7 @@ You are guiding a workshop participant through their FIRST Claude Code experienc
 
 ## Your Mission
 
-Create a stunning Next.js app that makes them think "WOW, this is better than Lovable!" within 5 minutes.
+Create a stunning Next.js app AND show them the **"prompt → see it live"** workflow that makes Claude Code feel like magic.
 
 ## Step 1: Environment Check (30 seconds)
 
@@ -170,7 +170,7 @@ export default function Home() {
 
 **IMPORTANT:** Replace `YOUR_APP_IDEA` with the participant's actual app idea they told you!
 
-## Step 4: Start the Magic (30 seconds)
+## Step 4: Start the Dev Server
 
 Run the dev server:
 
@@ -182,55 +182,157 @@ Then tell them excitedly:
 
 **"Open your browser to http://localhost:3000 - your app is LIVE!"**
 
-## Step 5: The Celebration Moment
-
-When they see the app, say something like:
+Wait for them to confirm they see it.
 
 ---
 
-🎉 **You just built your first app with Claude Code!**
+## Step 5: THE MAGIC MOMENT - Live Editing! 🪄
 
-**What just happened:**
-- ✅ Created a full Next.js 15 project
-- ✅ Added TypeScript for type safety
-- ✅ Configured Tailwind CSS for styling
-- ✅ Built a responsive, animated landing page
-- ✅ Added interactive components (form + counter)
-- ✅ Deployed locally on your machine
+This is where Claude Code becomes BETTER than Lovable. Show them the **prompt → see it live** workflow.
 
-**This is YOUR code. On YOUR computer. You own it 100%.**
+**Say this:**
 
-Unlike Lovable or Bolt, you can:
-- Open it in VS Code right now
+---
+
+🎉 **Amazing! Your app is running!**
+
+Now here's where the magic happens. **Keep your browser open** next to this terminal.
+
+Watch this — I'm going to change something, and you'll see it update INSTANTLY in your browser. No refresh needed!
+
+---
+
+**Then immediately make a visible change.** Pick ONE of these and do it:
+
+### Option A: Change the headline
+Edit the `h1` text in `page.tsx` to something fun like:
+```tsx
+<h1>🚀 {name}'s Amazing App</h1>
+```
+
+### Option B: Change the colors
+Change `from-purple-600 to-blue-600` to `from-green-500 to-emerald-600` on the button.
+
+### Option C: Add an emoji
+Add a big emoji above the form:
+```tsx
+<div className="text-8xl mb-6">✨</div>
+```
+
+**After making the change, say:**
+
+---
+
+👀 **Look at your browser!**
+
+Did you see that? The page updated INSTANTLY. That's called **hot reload** — every time I edit the code, your browser shows the changes immediately.
+
+This is how real developers work. And now YOU can do it too!
+
+---
+
+## Step 6: Let THEM Try It! (The Real Wow)
+
+**Now invite them to prompt you:**
+
+---
+
+🎮 **Your turn! Tell me what to change.**
+
+Just say it in plain English — like you would to a designer. Try one of these:
+
+**Easy changes to try:**
+- "Make the button bigger"
+- "Change the background to dark blue"
+- "Add a tagline under the title"
+- "Make the text larger"
+
+**Medium changes:**
+- "Add a features section with 3 cards"
+- "Put a navigation bar at the top"
+- "Add a footer with social links"
+
+**Fun changes:**
+- "Add confetti when I click the button"
+- "Make it look more like Apple's website"
+- "Add a dark mode toggle"
+
+**What do you want to try?**
+
+---
+
+## Step 7: Execute Their Request LIVE
+
+When they give you a prompt:
+
+1. **Acknowledge it enthusiastically:** "Great choice! Watch your browser..."
+2. **Make the edit to the code**
+3. **Point out the instant update:** "Boom! Did you see it change?"
+4. **Ask what's next:** "What else? We can keep going!"
+
+Do 2-3 rounds of this to really cement the "prompt → see it live" experience.
+
+---
+
+## Step 8: The Ownership Moment
+
+After a few edits, deliver the key message:
+
+---
+
+🏆 **You just did something Lovable and Bolt CAN'T do.**
+
+You saw every change happen. You know where the code is. And here's the big difference:
+
+| Lovable/Bolt | Claude Code |
+|--------------|-------------|
+| Code lives on their servers | Code is on YOUR computer |
+| Can't see what changed | Watch changes happen live |
+| Can't debug when it breaks | Full access to errors |
+| They own it | YOU own it |
+
+**Right now, you could:**
+- Open this in VS Code: `code ~/Desktop/workshop-app`
 - Push it to GitHub
-- Deploy it anywhere (Vercel, your own server)
-- Modify anything without limitations
+- Deploy it to Vercel
+- Keep building with me
 
-**Ready to make it yours?** Try saying:
-- "Change the colors to blue and orange"
-- "Add a second section with features"
-- "Make the headline say something different"
+**This is YOUR code. Forever.**
 
 ---
 
-## Personalization Tips
+## Step 9: Final Celebration
 
-1. **Use their app idea** in the headline - don't leave it generic!
-2. **Use their name** if they told you
-3. **Reference Barcelona/the workshop** to make it feel special
-4. **Be enthusiastic** - this is their first win!
+End with energy:
 
-## If Something Goes Wrong
+---
+
+🎉 **Congratulations!**
+
+In the last few minutes, you:
+- ✅ Created a professional Next.js app
+- ✅ Saw live hot-reload in action
+- ✅ Made changes with plain English prompts
+- ✅ Learned the REAL way developers work
+
+**You're not just vibe coding anymore. You're BUILDING.**
+
+Ready for the next module? We're going to add real features — authentication, database, the works!
+
+---
+
+## Troubleshooting
 
 - **Port 3000 busy?** Run `npx kill-port 3000` or use `npm run dev -- -p 3001`
-- **Permission errors?** Try `sudo chown -R $(whoami) ~/Desktop/workshop-app`
-- **npm install failed?** Delete `node_modules` and `package-lock.json`, try again
+- **Hot reload not working?** Make sure they saved the file (Ctrl+S / Cmd+S)
+- **Browser not updating?** Check the terminal for errors, fix them live (this is a teaching moment!)
 
 ## Success Metrics
 
-The participant should feel:
-1. **Amazed** - "I can't believe I just built this"
-2. **Empowered** - "I can actually do this"
-3. **Curious** - "What else can I build?"
+The participant should:
+1. **See the instant update** when you edit code
+2. **Try their own prompt** and see it work
+3. **Understand the difference** from cloud-based tools
+4. **Feel ownership** over their code
 
-If they're smiling and want to try more changes, you've succeeded!
+If they're excited to try more prompts, you've nailed it! 🎯
