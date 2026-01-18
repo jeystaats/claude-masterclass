@@ -9,46 +9,226 @@ Use **only** these technologies. Do not suggest alternatives.
 ### Core Framework
 | Technology | Version | Purpose |
 |------------|---------|---------|
-| Next.js | 15+ | Full-stack React framework (App Router) |
-| React | 18/19 | UI library |
+| Next.js | 15 | Full-stack React framework (App Router) |
+| React | 19 | UI library |
 | TypeScript | 5+ | Type safety |
 | Tailwind CSS | 3.4+ | Styling |
 
-### Backend & Database
-| Technology | Purpose |
-|------------|---------|
-| Convex | Real-time database + backend functions |
-| Clerk | Authentication (SSO, social login) |
+---
 
-### State Management
-| Library | Use For |
-|---------|---------|
-| Zustand | Client-side UI state (modals, cart, preferences) |
-| TanStack Query | Server state caching (external APIs only) |
-| Convex hooks | Convex data (real-time subscriptions) |
+## When to Use What (Decision Guide)
 
-**Rule:** Never use Redux. Never mix state libraries incorrectly.
+This is the most important section. Follow these rules exactly.
 
-### Forms & Validation
-| Library | Purpose |
-|---------|---------|
-| React Hook Form | Form state management |
-| Zod | Schema validation (shared client + server) |
-| @hookform/resolvers | Connect Zod to React Hook Form |
+### Authentication — Use Clerk
 
-### Animation & Motion
-| Library | Use For |
-|---------|---------|
-| GSAP | Complex animations, ScrollTrigger, timelines |
-| Framer Motion | Simple component animations, page transitions |
-| Lenis | Smooth scrolling |
+**When someone says:** "login", "signup", "authentication", "user account", "profile", "protected route", "auth"
 
-**Rule:** Use GSAP for scroll-based and complex animations. Use Framer Motion for simple hover/tap effects and layout animations.
+**Always use:** Clerk
 
-### CMS (Optional)
-| Technology | Purpose |
-|------------|---------|
-| Storyblok | Headless CMS with visual editor |
+```typescript
+// Setup: wrap app in ClerkProvider
+import { ClerkProvider } from '@clerk/nextjs';
+
+// Protect routes
+import { auth } from '@clerk/nextjs/server';
+const { userId } = await auth();
+
+// Get user in components
+import { useUser } from '@clerk/nextjs';
+const { user, isLoaded } = useUser();
+
+// Pre-built components
+<SignIn /> <SignUp /> <UserButton />
+```
+
+**Never suggest:** NextAuth, Auth0, Firebase Auth, Supabase Auth, custom JWT
+
+---
+
+### Database & Backend — Use Convex
+
+**When someone says:** "database", "save data", "store", "backend", "API", "real-time", "sync"
+
+**Always use:** Convex
+
+```typescript
+// Define schema
+// convex/schema.ts
+export default defineSchema({
+  tasks: defineTable({
+    title: v.string(),
+    completed: v.boolean(),
+    userId: v.string(),
+  }).index("by_user", ["userId"]),
+});
+
+// Query data (reactive, real-time)
+const tasks = useQuery(api.tasks.list);
+
+// Mutate data
+const createTask = useMutation(api.tasks.create);
+await createTask({ title: "New task" });
+```
+
+**Never suggest:** Firebase, Supabase, Prisma, Drizzle, PlanetScale, MongoDB
+
+---
+
+### Client State — Use Zustand
+
+**When someone says:** "global state", "shared state", "modal state", "sidebar open", "theme", "cart", "preferences"
+
+**Always use:** Zustand
+
+```typescript
+import { create } from 'zustand';
+
+interface UIStore {
+  sidebarOpen: boolean;
+  toggleSidebar: () => void;
+}
+
+export const useUIStore = create<UIStore>((set) => ({
+  sidebarOpen: false,
+  toggleSidebar: () => set((s) => ({ sidebarOpen: !s.sidebarOpen })),
+}));
+
+// Use in component
+const { sidebarOpen, toggleSidebar } = useUIStore();
+```
+
+**Never suggest:** Redux, Jotai, Recoil, MobX, Context for complex state
+
+---
+
+### Server State (External APIs) — Use TanStack Query
+
+**When someone says:** "fetch from external API", "cache API response", "polling", "background refresh"
+
+**Only use for:** External APIs (NOT Convex data)
+
+```typescript
+import { useQuery } from '@tanstack/react-query';
+
+const { data, isLoading } = useQuery({
+  queryKey: ['weather', city],
+  queryFn: () => fetch(`/api/weather/${city}`).then(r => r.json()),
+});
+```
+
+**Note:** For Convex data, use Convex's `useQuery` hook instead — it's already real-time.
+
+---
+
+### Forms — Use React Hook Form + Zod
+
+**When someone says:** "form", "input", "validation", "submit"
+
+**Always use:** React Hook Form + Zod
+
+```typescript
+// 1. Define schema
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8),
+});
+
+// 2. Use in form
+const form = useForm<z.infer<typeof schema>>({
+  resolver: zodResolver(schema),
+});
+
+// 3. Submit
+<form onSubmit={form.handleSubmit(onSubmit)}>
+  <input {...form.register('email')} />
+  {form.formState.errors.email?.message}
+</form>
+```
+
+**Never suggest:** Formik, custom validation, inline validation
+
+---
+
+### Animation — Use GSAP or Framer Motion
+
+**Decision tree:**
+
+| Scenario | Use |
+|----------|-----|
+| Scroll animations | GSAP + ScrollTrigger |
+| Timeline sequences | GSAP |
+| Hover/tap effects | Framer Motion |
+| Layout animations | Framer Motion |
+| Page transitions | Framer Motion |
+| Complex orchestration | GSAP |
+
+```typescript
+// GSAP for scroll-based
+useGSAP(() => {
+  gsap.from('.card', {
+    scrollTrigger: { trigger: '.card', start: 'top 80%' },
+    y: 50,
+    opacity: 0,
+  });
+});
+
+// Framer Motion for interactions
+<motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+  Click
+</motion.button>
+```
+
+---
+
+### Smooth Scrolling — Use Lenis
+
+**When someone says:** "smooth scroll", "scroll experience", "scroll feel"
+
+```typescript
+import Lenis from '@studio-freight/lenis';
+
+useEffect(() => {
+  const lenis = new Lenis();
+  function raf(time: number) {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  }
+  requestAnimationFrame(raf);
+}, []);
+```
+
+---
+
+### CMS / Content — Use Storyblok (Optional)
+
+**When someone says:** "CMS", "content management", "blog", "marketing pages", "editor"
+
+**Use:** Storyblok with visual editor
+
+---
+
+## State Management Decision Tree
+
+```
+Where does the data come from?
+
+├── Convex database
+│   └── Use: useQuery / useMutation from Convex
+│
+├── External API (weather, stocks, etc.)
+│   └── Use: TanStack Query
+│
+├── User input (forms)
+│   └── Use: React Hook Form
+│
+└── UI state (no server)
+    ├── Shared across components?
+    │   ├── Yes → Use: Zustand
+    │   └── No → Use: useState
+    └── URL state (filters, pagination)?
+        └── Use: nuqs or URL search params
+```
 
 ---
 
@@ -88,109 +268,202 @@ Apply this color distribution to every interface:
 3. **Generous Whitespace** — Let content breathe
 4. **4px Grid System** — All spacing should be multiples of 4px
 
-### Typography
-
-1. **Two Fonts Maximum** — One for headings, one for body (or just one)
-2. **Clear Hierarchy** — Large headlines, readable body text
-3. **Responsive Scaling** — `text-4xl md:text-5xl lg:text-6xl`
-
 ---
 
-## Coding Patterns
-
-### Component Architecture
+## Project Structure
 
 ```
 src/
-├── app/                 # Next.js App Router pages
+├── app/                    # Next.js 15 App Router
+│   ├── (auth)/            # Auth routes (login, signup)
+│   ├── (dashboard)/       # Protected routes
+│   ├── api/               # API routes (if needed)
+│   └── layout.tsx         # Root layout with providers
 ├── components/
-│   ├── ui/             # Generic reusable (Button, Card, Input)
-│   └── features/       # Domain-specific (LoginForm, UserCard)
+│   ├── ui/                # Generic: Button, Card, Input
+│   └── features/          # Domain: LoginForm, TaskList
+├── convex/                # Convex backend
+│   ├── schema.ts          # Database schema
+│   ├── tasks.ts           # Task functions
+│   └── users.ts           # User functions
 ├── lib/
-│   ├── utils.ts        # Helper functions
-│   └── schemas/        # Zod validation schemas
-├── hooks/              # Custom React hooks
-└── stores/             # Zustand stores
+│   ├── utils.ts           # cn() and helpers
+│   └── schemas/           # Zod validation schemas
+├── hooks/                 # Custom React hooks
+└── stores/                # Zustand stores
 ```
 
-### State Management Decision Tree
+---
 
-```
-Is it from an API/database?
-├── Yes → Is it Convex data?
-│         ├── Yes → Use useQuery/useMutation from Convex
-│         └── No → Use TanStack Query
-└── No → Is it shared across multiple components?
-         ├── Yes → Use Zustand store
-         └── No → Use useState
-```
+## Convex + Clerk Integration
 
-### Form Pattern
+Standard setup for authenticated apps:
 
-Always follow this structure:
-
-```typescript
-// 1. Define schema (lib/schemas/example.ts)
-import { z } from 'zod';
-
-export const exampleSchema = z.object({
-  name: z.string().min(2, 'Name is required'),
-  email: z.string().email('Invalid email'),
-});
-
-export type ExampleFormData = z.infer<typeof exampleSchema>;
-
-// 2. Use in component
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-
-const form = useForm<ExampleFormData>({
-  resolver: zodResolver(exampleSchema),
-});
-```
-
-### Convex Patterns
-
-**Function Types:**
-- `query` — Read data (reactive, real-time)
-- `mutation` — Write data (transactional)
-- `action` — External API calls ONLY
-
-**Always add indexes** for any field you query by:
 ```typescript
 // convex/schema.ts
 export default defineSchema({
   users: defineTable({
+    clerkId: v.string(),
     email: v.string(),
     name: v.string(),
-  }).index("by_email", ["email"]),
+  }).index("by_clerk_id", ["clerkId"]),
+});
+
+// convex/users.ts
+export const getCurrentUser = query({
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return null;
+
+    return await ctx.db
+      .query("users")
+      .withIndex("by_clerk_id", (q) => q.eq("clerkId", identity.subject))
+      .unique();
+  },
 });
 ```
 
-### Animation Pattern
+---
+
+## React Component Rules
+
+### Component Classification
+
+| Type | Location | Purpose |
+|------|----------|---------|
+| UI Components | `components/ui/` | Generic, reusable (Button, Card, Input) |
+| Feature Components | `components/features/` | Domain-specific (LoginForm, UserCard) |
+| Page Components | Co-located with page | Single-use, page-specific |
+
+### DRY & KISS Principles
+
+1. **One component = one job** — Split if doing multiple things
+2. **Max 5-7 props** — More = code smell, consider composition
+3. **Check for duplicates** — Before creating, search for similar components
+4. **Extract repeated patterns** — Tailwind classes, logic, structure
+
+### Prop Drilling Prevention
 
 ```typescript
-// GSAP for complex animations
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
+// ❌ BAD - Passing props through 3+ levels
+<Parent user={user}>
+  <Child user={user}>
+    <GrandChild user={user} />
+  </Child>
+</Parent>
 
-useGSAP(() => {
-  gsap.from('.hero-text', {
-    y: 100,
-    opacity: 0,
-    duration: 1,
-    stagger: 0.2,
-  });
-}, []);
-
-// Framer Motion for simple interactions
-<motion.button
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
->
-  Click me
-</motion.button>
+// ✅ GOOD - Use Zustand or Context
+const user = useUserStore((s) => s.user);
 ```
+
+### TypeScript Standards
+
+```typescript
+// ✅ Always type props explicitly
+interface ButtonProps {
+  variant: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+  children: React.ReactNode;
+  onClick?: () => void;
+}
+
+// ✅ Export types for reuse
+export type { ButtonProps };
+
+// ✅ Use discriminated unions for variants
+type CardProps =
+  | { variant: 'metric'; value: number; label: string }
+  | { variant: 'content'; title: string; body: string };
+```
+
+---
+
+## Server vs Client Components (Next.js 15)
+
+### Default = Server Component
+
+Components are Server Components by default. Only add `'use client'` when needed.
+
+### Must be Client Component if:
+
+| Requirement | Example |
+|-------------|---------|
+| React hooks | `useState`, `useEffect`, `useContext` |
+| Event handlers | `onClick`, `onChange`, `onSubmit` |
+| Browser APIs | `window`, `document`, `localStorage` |
+| Interactivity | Animations, forms, toggles |
+
+### Must be Server Component if:
+
+| Requirement | Example |
+|-------------|---------|
+| Data fetching | `async/await`, database calls |
+| Sensitive data | API keys, secrets |
+| Large dependencies | Keep off client bundle |
+| No interactivity | Static content |
+
+### The Composition Pattern
+
+```typescript
+// ✅ Server Component (parent) fetches data
+async function ProductPage({ id }: { id: string }) {
+  const product = await getProduct(id); // Server-side fetch
+
+  return (
+    <div>
+      <ProductInfo product={product} />      {/* Server */}
+      <AddToCartButton id={id} />            {/* Client */}
+    </div>
+  );
+}
+
+// ✅ Client Component (child) handles interactivity
+'use client';
+function AddToCartButton({ id }: { id: string }) {
+  const [loading, setLoading] = useState(false);
+  // ... interaction logic
+}
+```
+
+### Hydration Safety
+
+```typescript
+// ❌ BAD - Causes hydration mismatch
+function Component() {
+  return <div>{Date.now()}</div>;
+}
+
+// ✅ GOOD - Use useEffect for browser-only values
+function Component() {
+  const [time, setTime] = useState<number | null>(null);
+
+  useEffect(() => {
+    setTime(Date.now());
+  }, []);
+
+  return <div>{time ?? 'Loading...'}</div>;
+}
+```
+
+---
+
+## Icons — Use Phosphor Icons
+
+```typescript
+import { House, MagnifyingGlass, User } from '@phosphor-icons/react';
+
+// Standard sizes
+<House size={16} />  // Small
+<House size={20} />  // Default
+<House size={24} />  // Large
+
+// With weight variants
+<House weight="regular" />
+<House weight="bold" />
+<House weight="fill" />
+```
+
+**Never use:** Heroicons, Lucide, FontAwesome, or mixing icon libraries.
 
 ---
 
@@ -201,18 +474,9 @@ useGSAP(() => {
 3. **Code Split** — Use `dynamic()` for heavy components
 4. **Respect Preferences** — Check `prefers-reduced-motion`
 
-```typescript
-// Check for reduced motion
-const prefersReducedMotion = window.matchMedia(
-  '(prefers-reduced-motion: reduce)'
-).matches;
-```
-
 ---
 
 ## Workshop Skills
-
-These skills are pre-configured for you:
 
 | Command | Description |
 |---------|-------------|
@@ -222,13 +486,17 @@ These skills are pre-configured for you:
 
 ## What NOT to Do
 
-- **Don't use Redux** — Zustand is simpler and sufficient
-- **Don't use CSS Modules** — Use Tailwind CSS
-- **Don't use axios** — Use native fetch or TanStack Query
-- **Don't use moment.js** — Use date-fns (if needed)
-- **Don't use lodash entirely** — Import specific functions only
-- **Don't suggest Firebase** — We use Convex
-- **Don't suggest NextAuth** — We use Clerk
+| Don't Use | Use Instead | Why |
+|-----------|-------------|-----|
+| Redux | Zustand | Simpler, less boilerplate |
+| NextAuth | Clerk | Pre-built UI, better DX |
+| Firebase | Convex | Real-time by default, type-safe |
+| Supabase | Convex | Better React integration |
+| CSS Modules | Tailwind CSS | Faster development |
+| axios | fetch / TanStack Query | Native, smaller bundle |
+| moment.js | date-fns | Smaller, tree-shakeable |
+| Full lodash | Specific imports | Bundle size |
+| Formik | React Hook Form | Better performance |
 
 ---
 
@@ -244,9 +512,8 @@ Text Secondary: text-slate-400
 Accent:         bg-purple-500 / text-purple-400
 ```
 
-### Common Patterns
+### cn() Utility
 ```typescript
-// cn() utility for conditional classes
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
