@@ -64,12 +64,33 @@
 
 ## Traceability
 
-| REQ | Phase |
-|-----|-------|
-| INST-01 through INST-05 | TBD |
-| GLOB-01 through GLOB-05 | TBD |
-| MOD-01 through MOD-04 | TBD |
-| CMD-01 through CMD-04 | TBD |
-| SESS-01 through SESS-03 | TBD |
-| SCAF-01 through SCAF-04 | TBD |
-| DOC-01 through DOC-03 | TBD |
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| INST-01 | Phase 1 — Installer Foundation | Pending |
+| INST-02 | Phase 1 — Installer Foundation | Pending |
+| INST-03 | Phase 1 — Installer Foundation | Pending |
+| INST-04 | Phase 1 — Installer Foundation | Pending |
+| INST-05 | Phase 1 — Installer Foundation | Pending |
+| SCAF-03 | Phase 1 — Installer Foundation | Pending |
+| SCAF-04 | Phase 1 — Installer Foundation | Pending |
+| GLOB-01 | Phase 2 — Global Config Content | Pending |
+| GLOB-02 | Phase 2 — Global Config Content | Pending |
+| GLOB-03 | Phase 2 — Global Config Content | Pending |
+| GLOB-04 | Phase 2 — Global Config Content | Pending |
+| GLOB-05 | Phase 2 — Global Config Content | Pending |
+| MOD-01 | Phase 3 — Module Structure and CLAUDE.md | Pending |
+| MOD-02 | Phase 3 — Module Structure and CLAUDE.md | Pending |
+| MOD-03 | Phase 3 — Module Structure and CLAUDE.md | Pending |
+| MOD-04 | Phase 3 — Module Structure and CLAUDE.md | Pending |
+| CMD-01 | Phase 3 — Module Structure and CLAUDE.md | Pending |
+| CMD-02 | Phase 3 — Module Structure and CLAUDE.md | Pending |
+| CMD-03 | Phase 3 — Module Structure and CLAUDE.md | Pending |
+| CMD-04 | Phase 3 — Module Structure and CLAUDE.md | Pending |
+| SESS-01 | Phase 4 — Session Launcher | Pending |
+| SESS-02 | Phase 4 — Session Launcher | Pending |
+| SESS-03 | Phase 4 — Session Launcher | Pending |
+| SCAF-01 | Phase 5 — Scaffold and Docs | Pending |
+| SCAF-02 | Phase 5 — Scaffold and Docs | Pending |
+| DOC-01 | Phase 5 — Scaffold and Docs | Pending |
+| DOC-02 | Phase 5 — Scaffold and Docs | Pending |
+| DOC-03 | Phase 5 — Scaffold and Docs | Pending |
