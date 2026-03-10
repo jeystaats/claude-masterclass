@@ -43,7 +43,17 @@ You are helping a developer build a SaaS product with the Claude Code Mastery st
 - `/commit` — Write conventional commit messages
 - `/review` — Structured code review for quality and correctness
 - `/debug` — Scientific debugging with root cause analysis
-- `/visual-explainer` — Generate interactive HTML diagrams and concept boards (use proactively)
+
+### visual-explainer Plugin
+Generates self-contained HTML pages viewable in any browser:
+- `/generate-web-diagram` — Architecture diagrams, flowcharts, ER diagrams, data flows
+- `/generate-slides` — Magazine-quality slide decks (great for pitching or showcasing)
+- `/diff-review` — Visual diff review with code review and architecture comparison
+- `/plan-review` — Compare a plan against codebase with risk assessment
+- `/project-recap` — Mental model snapshot for context-switching back to a project
+- `/share` — Deploy any generated HTML to Vercel for a live URL
+
+Use proactively — when about to render a table (4+ rows or 3+ columns), generate HTML instead.
 
 ### Quality Hooks Active
 Five PostToolUse hooks run on every file write:

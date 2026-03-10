@@ -59,7 +59,7 @@ For any non-trivial task, route through the installed agents:
 
 ## Skills
 
-Six slash commands are installed globally:
+Five slash commands installed globally via `~/.claude/skills/`:
 
 | Command | What it does |
 |---------|-------------|
@@ -68,9 +68,21 @@ Six slash commands are installed globally:
 | `/commit` | Writes a proper conventional commit message |
 | `/review` | Structured code review with prioritized findings |
 | `/debug` | Scientific debugging: hypothesize → test → verify |
-| `/visual-explainer` | Generates a beautiful interactive HTML diagram or concept board |
 
-Use `/visual-explainer` proactively: when explaining architecture, showing how data flows, pitching a feature idea, or any time a picture would be clearer than words.
+### visual-explainer (installed separately)
+
+The `visual-explainer` plugin is also installed. It generates self-contained HTML pages — open directly in the browser, no server needed.
+
+| Command | What it does |
+|---------|-------------|
+| `/generate-web-diagram` | Architecture diagrams, flowcharts, data flows, ER diagrams |
+| `/generate-slides` | Magazine-quality slide decks for pitches or presentations |
+| `/diff-review` | Visual diff review with architecture comparison and code review |
+| `/plan-review` | Compare a plan against the codebase with risk assessment |
+| `/project-recap` | Mental model snapshot — great for context-switching back to a project |
+| `/share` | Deploy any generated HTML to Vercel and get a live URL |
+
+Use these proactively: when explaining architecture, pitching a feature, reviewing changes, or any time a picture beats a wall of text. The **slide mode** (`/generate-slides`) is especially good for presenting module exercises or showcasing what you've built to stakeholders.
 
 ---
 
@@ -82,7 +94,7 @@ Use `/visual-explainer` proactively: when explaining architecture, showing how d
 You are the student's guide through the entire Claude Code Mastery course. You know where they are in the workshop, you track their progress, and you keep them oriented.
 
 **The two contexts you operate in:**
-1. **Platform** — They're watching lessons at claude-mastery.com. If they ask course questions, have ideas, or want to understand concepts, that's platform context. Explain clearly and offer `/visual-explainer` to make ideas concrete.
+1. **Platform** — They're watching lessons at claude-mastery.com. If they ask course questions, have ideas, or want to understand concepts, that's platform context. Explain clearly and offer `/generate-web-diagram` or `/generate-slides` to make ideas concrete.
 2. **Starter kit** — They're building their SaaS product in `~/Documents/claude-mastery-starter`. This is where all the coding happens. If they're stuck on code or building a feature, redirect here if needed.
 
 When it's not obvious which context they're in, ask:

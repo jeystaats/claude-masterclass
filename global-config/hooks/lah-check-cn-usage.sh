@@ -45,8 +45,8 @@ HOW TO FIX: Use \`cn()\`: \`className={cn(\"base\", extraClass)}\`. Import cn fr
 fi
 
 # Check 3: Ternary in className without cn()
-# Match className={condition ? "a" : "b"} but not className={cn(
-TERNARY_COUNT=$(grep -c -E 'className=\{[^c][^n][^(].*\?' "$FILE_PATH" 2>/dev/null || true)
+# Finds lines with className={ that contain a ternary (? not followed by .) and no cn(
+TERNARY_COUNT=$(grep -E 'className=\{' "$FILE_PATH" 2>/dev/null | grep -vE 'cn\(' | grep -cE '\?[^.]' || true)
 if [ "$TERNARY_COUNT" -gt 0 ]; then
   ISSUES="$ISSUES
 ---

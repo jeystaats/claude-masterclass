@@ -206,6 +206,39 @@ clone_starter_kit() {
   log_done "Starter kit cloned to $STARTER_DEST"
 }
 
+install_visual_explainer() {
+  local dest="$HOME/.claude/skills/visual-explainer"
+
+  if [ -d "$dest" ]; then
+    log_skip "visual-explainer skill already installed"
+    return 0
+  fi
+
+  log_info "Installing visual-explainer skill (diagrams, slides, diff reviews)..."
+
+  local tmp
+  tmp=$(mktemp -d)
+  git clone --depth 1 https://github.com/nicobailon/visual-explainer.git "$tmp" 2>/dev/null
+
+  if [ ! -d "$tmp/plugins/visual-explainer" ]; then
+    log_warn "Could not install visual-explainer — clone failed. Install manually later."
+    rm -rf "$tmp"
+    return 0
+  fi
+
+  cp -r "$tmp/plugins/visual-explainer" "$dest"
+
+  # Patch {{skill_dir}} placeholder with the actual installed path
+  if [ "$(uname -s)" = "Darwin" ]; then
+    find "$dest" -name "*.md" -exec sed -i '' "s|{{skill_dir}}|$dest|g" {} \;
+  else
+    find "$dest" -name "*.md" -exec sed -i "s|{{skill_dir}}|$dest|g" {} \;
+  fi
+
+  rm -rf "$tmp"
+  log_done "visual-explainer installed — /generate-web-diagram, /generate-slides, /diff-review, /plan-review, and more"
+}
+
 # =============================================================================
 # Backup and merge functions
 # =============================================================================
@@ -392,6 +425,9 @@ main() {
   install_global_config
   append_claude_md_snippet
 
+  log_info "Installing visual-explainer skill..."
+  install_visual_explainer
+
   echo ""
   echo "=================================="
   echo "  All done!"
@@ -399,7 +435,8 @@ main() {
   echo ""
   echo "  Installed into ~/.claude/:"
   echo "  ✓ 14 agents  (orchestrator, product owner, frontend/backend leads, creative, specialists)"
-  echo "  ✓ 6 skills   (/breakdown, /plan, /commit, /review, /debug, /visual-explainer)"
+  echo "  ✓ 5 skills   (/breakdown, /plan, /commit, /review, /debug)"
+  echo "  ✓ visual-explainer  (/generate-web-diagram, /generate-slides, /diff-review, /plan-review)"
   echo "  ✓ 5 hooks    (TypeScript, React, cn(), file size, secrets)"
   echo ""
   echo "  Your workspace: $STARTER_DEST"

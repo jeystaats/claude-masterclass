@@ -70,7 +70,19 @@ A full AI development team, installed once and available in every project you wo
 | `/commit` | Writes conventional commit messages |
 | `/review` | Structured code review with prioritized findings |
 | `/debug` | Scientific debugging with root cause analysis |
-| `/visual-explainer` | Generates interactive HTML diagrams and concept boards |
+
+### visual-explainer Plugin (globally in `~/.claude/skills/visual-explainer/`)
+
+Generates self-contained HTML pages — architecture diagrams, slide decks, diff reviews, and more. Open directly in any browser, no server needed.
+
+| Command | What it does |
+|---------|-------------|
+| `/generate-web-diagram` | Architecture diagrams, flowcharts, ER diagrams, data flows |
+| `/generate-slides` | Magazine-quality slide decks — great for pitching or showcasing |
+| `/diff-review` | Visual diff review with architecture comparison and code review |
+| `/plan-review` | Compare a plan against the codebase with risk assessment |
+| `/project-recap` | Mental model snapshot for switching context back into a project |
+| `/share` | Deploy any generated HTML to Vercel for a shareable live URL |
 
 ### Quality Hooks
 
