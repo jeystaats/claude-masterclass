@@ -35,12 +35,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. The installer clones the starter kit to `~/Documents/claude-mastery-starter` if not already present
   5. `.env.example` and `.gitignore` exist at project root covering all required variables and ignoring .env, node_modules, .DS_Store, Claude Code logs
 
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 01-01: Write install.sh with environment checks, dependency install, and idempotency guards
-- [ ] 01-02: Implement backup system and ~/.claude/ merge logic
-- [ ] 01-03: Add .env.example and .gitignore; add Windows path note (WSL2 or defer PS1)
+- [ ] 01-01-PLAN.md — Core install.sh with OS detection, dependency install functions, idempotency guards, clone logic
+- [ ] 01-02-PLAN.md — .env.example, .gitignore update, and config/workshop-settings.json template
+- [ ] 01-03-PLAN.md — Backup system and jq-based settings.json merge logic added to install.sh
 
 ---
 
