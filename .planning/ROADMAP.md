@@ -104,14 +104,14 @@ Plans:
 
 **Success Criteria** (what must be TRUE):
   1. Running `bash start.sh` without arguments displays available modules and prompts the student to select one
-  2. Running `bash start.sh 4` launches Claude Code scoped to `modules/04-build-your-app/` with teaching-mode instructions injected into the session CLAUDE.md
+  2. Running `bash start.sh 4` launches Claude Code scoped to `modules/04-plan-your-product/` with teaching-mode instructions injected into the session CLAUDE.md
   3. The session CLAUDE.md written by start.sh includes only the skills, agents, and constraints relevant to the selected module — not the full global ruleset
 
-**Plans**: TBD
+**Plans:** 2 plans
 
 Plans:
-- [ ] 04-01: Write start.sh with module listing, selection prompt, and module-number-to-directory lookup
-- [ ] 04-02: Implement session CLAUDE.md template with module-specific context injection and progressive skill disclosure
+- [ ] 04-01-PLAN.md — start.sh with dynamic module listing, zero-padded glob resolution, session context writer, and Claude launch
+- [ ] 04-02-PLAN.md — templates/session.md.tpl (annotated template reference) and lib/session.sh (sourceable skill/agent disclosure library)
 
 ---
 
