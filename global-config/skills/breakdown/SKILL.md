@@ -1,9 +1,9 @@
 ---
-name: lah-explain-code
+name: breakdown
 description: >
-  Explain code using a beginner-friendly multi-layer approach. Auto-invokes when
-  the user says "how does this work", "explain this code", "what does this do",
-  or asks for a walkthrough of unfamiliar code.
+  Explain code using a layered approach: analogy → diagram → line-by-line trace.
+  Auto-invokes when the user says "how does this work", "explain this", "what
+  does this do", or asks for a walkthrough of unfamiliar code.
 ---
 
 <!-- WHY THIS SKILL EXISTS: Beginners learn faster when explanations layer from

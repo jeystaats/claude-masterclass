@@ -64,11 +64,11 @@ A full AI development team, installed once and available in every project you wo
 
 | Skill | What it does |
 |-------|-------------|
-| `/lah-explain-code` | Explains code with analogies and step-by-step breakdowns |
-| `/lah-plan-task` | Decomposes a task before writing any code |
-| `/lah-commit-message` | Writes conventional commit messages |
-| `/lah-review-code` | Structured code review for quality and correctness |
-| `/lah-debug-it` | Scientific debugging with root cause analysis |
+| `/breakdown` | Explains code with analogies and step-by-step breakdowns |
+| `/plan` | Decomposes a feature into tasks before writing any code |
+| `/commit` | Writes conventional commit messages |
+| `/review` | Structured code review with prioritized findings |
+| `/debug` | Scientific debugging with root cause analysis |
 
 ### Quality Hooks
 

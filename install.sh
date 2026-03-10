@@ -274,7 +274,7 @@ install_global_config() {
   # --- Skills ---
   if [ -d "$script_dir/global-config/skills" ]; then
     mkdir -p "$HOME/.claude/skills"
-    for skill_dir in "$script_dir/global-config/skills"/lah-*/; do
+    for skill_dir in "$script_dir/global-config/skills"/*/; do
       [ -d "$skill_dir" ] || continue
       local skill_name
       skill_name=$(basename "$skill_dir")
@@ -392,7 +392,7 @@ main() {
   echo ""
   echo "  Installed into ~/.claude/:"
   echo "  ✓ 13 agents  (orchestrator, frontend/backend leads, creative, specialists)"
-  echo "  ✓ 5 skills   (/lah-explain-code, /lah-plan-task, /lah-commit-message, ...)"
+  echo "  ✓ 5 skills   (/breakdown, /plan, /commit, /review, /debug)"
   echo "  ✓ 5 hooks    (TypeScript, React, cn(), file size, secrets)"
   echo ""
   echo "  Your workspace: $STARTER_DEST"

@@ -1,8 +1,8 @@
 ---
-name: lah-review-code
+name: review
 description: >
   Perform a structured code review with prioritized findings. Invoke manually
-  with /lah-review-code and point it at a file, function, or git diff.
+  with /review and point it at a file, function, or git diff.
 disable-model-invocation: true
 ---
 

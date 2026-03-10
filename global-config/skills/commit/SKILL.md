@@ -1,8 +1,8 @@
 ---
-name: lah-commit-message
+name: commit
 description: >
   Write a conventional commit message for staged changes. Invoke manually with
-  /lah-commit-message after staging your changes with git add.
+  /commit after staging your changes with git add.
 disable-model-invocation: true
 ---
 

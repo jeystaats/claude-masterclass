@@ -1,5 +1,5 @@
 ---
-name: lah-debug-it
+name: debug
 description: >
   Debug an issue using the scientific method -- hypothesize, test, verify.
   Auto-invokes when the user says "debug this", "why isn't this working",

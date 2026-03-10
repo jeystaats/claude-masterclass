@@ -1,9 +1,9 @@
 ---
-name: lah-plan-task
+name: plan
 description: >
-  Decompose a task into concrete subtasks before writing any code. Auto-invokes
-  when the user says "plan this", "how should I approach", "break this down",
-  or describes a multi-step feature to build.
+  Decompose a feature or task into concrete subtasks before writing any code.
+  Auto-invokes when the user says "plan this", "how should I approach", "break
+  this down", or describes a multi-step feature to build.
 ---
 
 <!-- WHY THIS SKILL EXISTS: Jumping straight into code is the #1 beginner
