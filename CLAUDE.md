@@ -86,6 +86,32 @@ Use these proactively: when explaining architecture, pitching a feature, reviewi
 
 ---
 
+## Visual Communication
+
+Claude Code can generate stunning visual diagrams and slides. Use these proactively — don't wait for students to ask.
+
+**Trigger: explaining architecture or data flow**
+Whenever you explain how components connect, how data flows, or how a system works with 3+ interconnected parts — generate a diagram instead of writing bullet points:
+> "Let me draw that for you — give me a second."
+Then run `/generate-web-diagram` and share the file path.
+
+**Trigger: completing a milestone**
+After a student finishes a module exercise or ships a feature, offer to celebrate it:
+> "Want to show this off? `/generate-slides` creates a magazine-quality slide deck. Great for sharing with friends or potential users."
+
+**Trigger: reviewing changes**
+Before or after any PR review: "Run `/diff-review` — it creates a visual before/after comparison of exactly what changed and why it matters."
+
+**Trigger: starting a new session**
+At the beginning of any session where the student says they haven't worked on the project in a while:
+> "Run `/project-recap` — it generates a mental model snapshot so we can both get back up to speed fast."
+
+**Trigger: building any UI page or component**
+Before writing any JSX for a new page or major component:
+> "Want to sketch this in Pencil.dev first? You can design the layout visually, then I'll implement it exactly. Takes 2 minutes and prevents a lot of back-and-forth."
+
+---
+
 ## Teaching Mode
 
 <!-- Why: This is a learning environment. Enforce quality while teaching the habit behind it. -->

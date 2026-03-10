@@ -204,6 +204,12 @@ Teach: feature branches for every change, commit working increments often.
 
 **After any significant change:**
 "Before moving on, commit this: `git add -A && git commit -m 'feat: describe-what-you-built'`"
+
+**Visual Tools for This Module**
+After they finish their CLAUDE.md, suggest:
+"Let's visualize your project architecture — it'll make CLAUDE.md rules clearer. Type exactly this:
+`/generate-web-diagram — Map the architecture of [their project name]. Show: frontend (Next.js) -> backend (Convex) -> auth (Clerk) -> storage. Include what each layer is responsible for.`
+The diagram opens in your browser. Paste the URL or screenshot into your project docs."
 EOF
 }
 
@@ -275,6 +281,14 @@ If they're ready: help them connect Context7 for live documentation.
 
 **After any agent is created:**
 "Test it: type `@your-agent-name` in Claude and give it a task. See how it responds."
+
+**Visual Tools for This Module**
+After Exercise 1 (custom agent), try this with them:
+"Now let's see what your agent team looks like. Type:
+`/generate-web-diagram — Show our AI agent team as a flowchart. Agents: @agent-orchestrator (routes tasks), @frontend-lead (UI/components), @backend-lead (data/API), @creative-director (visual direction). Show arrows from orchestrator to each specialist.`"
+
+After any complex hook explanation:
+"This is a great moment for /breakdown — type `/breakdown` and paste the hook code. It'll explain what the hook does with an analogy first."
 EOF
 }
 
@@ -398,6 +412,22 @@ Help them document:
 
 **GitHub check:**
 "Have you pushed this to GitHub yet? Your RESEARCH.md and PRD are the foundation of everything. Push them: `git push origin main`"
+
+**Visual Tools for This Module**
+After Exercise 1 (RESEARCH.md is done):
+"Let's turn this research into a presentation. Type:
+`/generate-slides — Create a 5-slide executive summary of our RESEARCH.md. Slides: (1) The Problem, (2) Market Opportunity, (3) Competitors + Gaps, (4) Our Approach, (5) What We're Building. Use our product name as the title.`
+This is the pitch deck for your idea. Share it."
+
+After Exercise 2 (PRD is written):
+"Visualize the data model before coding it:
+`/generate-web-diagram — Create an ER diagram from docs/architecture.md. Show each table as a box with its key fields, and draw relationship arrows between them.`
+This becomes your schema reference."
+
+After Exercise 3 (tickets are in GitHub):
+"Give yourself a /project-recap now while everything's fresh:
+`/project-recap — We've just finished planning. Summarize: what we're building, the tech stack, the top 5 tickets, and what comes next.`
+Save this as docs/context.md — you'll use it to re-orient Claude in future sessions."
 EOF
 }
 
@@ -426,6 +456,12 @@ This student is working on **Module 5: Design and Components**. They're setting 
 ---
 
 ### Module 5 Exercises
+
+**Before you start — sketch first**
+Encourage them to open Pencil.dev before opening their IDE:
+"Before we build any components, let's sketch the layout. Open Pencil.dev (it's free), draw a rough layout of your main page, and screenshot it. Then I can implement it exactly — no guessing, no back-and-forth."
+
+This saves 2-3 revision cycles on every page.
 
 **Exercise 1: Collect References + Extract DNA**
 Have them share 3-5 websites or screenshot URLs they like.
@@ -476,6 +512,19 @@ For each component: Plan → Build → Story → Verify
 
 **When they skip Storybook stories:**
 "The story isn't optional — it's your documentation and your visual test. Add a story for each variant before moving on."
+
+**Visual Tools for This Module**
+After Visual DNA extraction:
+"Let's make the design token map visual:
+`/generate-web-diagram — Create a design token reference card. Show: color palette (swatches with hex values), typography scale (each size with a sample), spacing scale (ruler-style), and border radius values. Style it beautifully — this is our design bible.`"
+
+When reviewing their component library:
+"Run /diff-review after every Storybook story you add:
+`/diff-review — Review the changes to [component name]. Show what changed, why, and whether it's architecturally sound.`"
+
+When they're happy with the design:
+"`/generate-slides — Create a 4-slide design system showcase. Slides: (1) Color Palette, (2) Typography, (3) Core Components, (4) Example Page Layout.`
+Send this to anyone who asks what does your app look like?"
 EOF
 }
 
@@ -538,6 +587,20 @@ Experienced: "Build issue #X. Data layer first (follow convex/schema.ts patterns
 
 **Commit reminders:**
 After any working state: "Commit this working state before continuing: `git add -A && git commit -m 'feat: describe-what-works'`"
+
+**Visual Tools for This Module**
+Before starting a complex ticket:
+"`/plan-review — Review our plan for issue #X against the current codebase. Identify risks, missing pieces, and whether the approach matches our architecture.`"
+
+After merging a PR:
+"`/diff-review — Show a visual review of the changes we just merged. Include what the feature does, what changed, and any architecture implications.`"
+
+When stuck on why something works the way it does:
+"`/breakdown — Explain [the confusing thing] with an analogy first, then a diagram, then line by line.`
+/breakdown is the fastest way to understand unfamiliar code."
+
+After shipping a major feature:
+"`/generate-slides — Create a 3-slide feature announcement. Slides: (1) The Problem It Solves, (2) How It Works (with diagram), (3) What's Next.`"
 EOF
 }
 
@@ -590,6 +653,16 @@ NEXT_PUBLIC_CONVEX_URL
 
 **When the build fails:**
 "Run `pnpm build` locally first — it's the same build Vercel runs. The error message will tell you exactly what's wrong."
+
+**Visual Tools for This Module**
+After first successful deploy:
+"Let's document the architecture now that it's live:
+`/generate-web-diagram — Show our full production architecture. Draw: User browser -> Vercel (Next.js) -> Convex (backend) -> Clerk (auth) -> Stripe (payments). Show which services are public vs private.`
+Save this as docs/architecture-diagram.html — link it from your README."
+
+Use /generate-slides to announce the launch:
+"`/generate-slides — Create a product launch announcement. Slides: (1) What We Built, (2) Key Features (with screenshots described), (3) Tech Stack, (4) What's Next.`
+This is your launch post / investor update."
 EOF
 }
 
@@ -637,6 +710,18 @@ Review and strengthen their CLAUDE.md:
 
 **When they're unsure where to start:**
 "What's something Claude keeps doing wrong that you have to manually correct? That's a candidate for a hook or CLAUDE.md rule."
+
+**Visual Tools for This Module**
+After any complex architecture decision:
+"`/generate-web-diagram — Visualize the architecture decision we just made. Show the old approach vs new approach, and why we chose the new one.`
+Document decisions visually — future you will thank present you."
+
+For reviewing their production CLAUDE.md:
+"`/plan-review — Review our CLAUDE.md against the actual codebase. Are the rules being followed? What gaps exist? What rules should we add?`"
+
+For teaching someone else:
+"`/generate-slides — Create a 5-slide talk about what I've learned building [project name] with Claude Code. Slides: (1) The Problem, (2) The Approach, (3) Key Lessons, (4) Demo, (5) What's Next.`
+This is your conference talk outline."
 EOF
 }
 
@@ -687,6 +772,19 @@ System prompt that runs when user types /my-command
 
 **After the course:**
 Resources for continuing: Claude docs, Anthropic cookbook, built-in slash commands reference.
+
+**Visual Tools for This Module**
+The visual-explainer commands ARE custom slash commands — use them as templates:
+"Look at how /generate-slides works:
+`cat ~/.claude/skills/visual-explainer/commands/generate-slides.md`
+This is a SKILL.md file. Copy it, modify the instructions, and you have your own custom command."
+
+Create a /standup command together:
+"`/plan — Help me write a custom slash command called /standup. When run, it should: look at git log from the last 24 hours, summarize what was done, what's in progress, and what's next, formatted as a standup update.`"
+
+At the end of the course, generate a recap:
+"`/project-recap — I've just completed the Claude Code Mastery course. Create a full mental model: what I built, the tech stack, key decisions made, lessons learned, and what I want to build next.`
+Export this. It's your proof of work."
 EOF
 }
 
