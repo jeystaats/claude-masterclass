@@ -267,6 +267,91 @@ merge_settings() {
 # Main
 # =============================================================================
 
+install_global_config() {
+  local script_dir
+  script_dir="$(cd "$(dirname "$0")" && pwd)"
+
+  # --- Skills ---
+  if [ -d "$script_dir/global-config/skills" ]; then
+    mkdir -p "$HOME/.claude/skills"
+    for skill_dir in "$script_dir/global-config/skills"/lah-*/; do
+      [ -d "$skill_dir" ] || continue
+      local skill_name
+      skill_name=$(basename "$skill_dir")
+      local dest="$HOME/.claude/skills/$skill_name"
+      if [ -d "$dest" ]; then
+        log_skip "Skill already installed: $skill_name"
+      else
+        cp -r "$skill_dir" "$dest"
+        log_done "Installed skill: $skill_name"
+      fi
+    done
+  fi
+
+  # --- Agents ---
+  if [ -d "$script_dir/global-config/agents" ]; then
+    mkdir -p "$HOME/.claude/agents"
+    for agent_file in "$script_dir/global-config/agents"/lah-*.md; do
+      [ -f "$agent_file" ] || continue
+      local agent_name
+      agent_name=$(basename "$agent_file")
+      local dest="$HOME/.claude/agents/$agent_name"
+      if [ -f "$dest" ]; then
+        log_skip "Agent already installed: $agent_name"
+      else
+        cp "$agent_file" "$dest"
+        log_done "Installed agent: $agent_name"
+      fi
+    done
+  fi
+
+  # --- Hooks ---
+  if [ -d "$script_dir/global-config/hooks" ]; then
+    mkdir -p "$HOME/.claude/hooks"
+    for hook_file in "$script_dir/global-config/hooks"/lah-*.sh; do
+      [ -f "$hook_file" ] || continue
+      local hook_name
+      hook_name=$(basename "$hook_file")
+      local dest="$HOME/.claude/hooks/$hook_name"
+      if [ -f "$dest" ]; then
+        log_skip "Hook already installed: $hook_name"
+      else
+        cp "$hook_file" "$dest"
+        chmod +x "$dest"
+        log_done "Installed hook: $hook_name"
+      fi
+    done
+  fi
+}
+
+append_claude_md_snippet() {
+  local script_dir
+  script_dir="$(cd "$(dirname "$0")" && pwd)"
+  local snippet="$script_dir/global-config/CLAUDE.md.snippet"
+  local target="$HOME/.claude/CLAUDE.md"
+
+  if [ ! -f "$snippet" ]; then
+    log_skip "No CLAUDE.md.snippet found"
+    return 0
+  fi
+
+  mkdir -p "$HOME/.claude"
+
+  # Idempotent: skip if delimiter already present
+  if [ -f "$target" ] && grep -q "LAH-COURSE-START" "$target"; then
+    log_skip "CLAUDE.md course section already present"
+    return 0
+  fi
+
+  # Add a newline separator if file exists and is non-empty
+  if [ -f "$target" ] && [ -s "$target" ]; then
+    echo "" >> "$target"
+  fi
+
+  cat "$snippet" >> "$target"
+  log_done "Appended course section to ~/.claude/CLAUDE.md"
+}
+
 main() {
   echo ""
   echo "=================================="
@@ -296,6 +381,10 @@ main() {
   backup_claude_config
   merge_settings
 
+  log_info "Installing course skills, agents, and hooks..."
+  install_global_config
+  append_claude_md_snippet
+
   echo ""
   echo "=================================="
   echo "  Installation complete!"
@@ -313,6 +402,8 @@ main() {
   log_info "  2. cd $STARTER_DEST"
   log_info "  3. pnpm install"
   log_info "  4. pnpm dev"
+  log_info "  5. Installed: 5 skills, 4 agents, 5 hooks"
+  log_info "     Run '/lah-explain-code' in Claude Code to try a skill"
   echo ""
 }
 

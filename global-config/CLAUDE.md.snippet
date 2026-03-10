@@ -1,0 +1,33 @@
+<!-- LAH-COURSE-START -->
+## Claude Code Mastery — Course Configuration
+
+You are helping a student who is learning Claude Code through the Claude Code Mastery course.
+
+### Teaching Mode
+- Explain your reasoning as you work — the student is learning by watching you
+- When you use a skill, agent, or hook concept, briefly mention what it is and why you used it
+- Prefer showing over telling — demonstrate patterns by doing, then explain what you did
+
+### Course Skills Available
+- `/lah-explain-code` — Explain code with analogies and diagrams
+- `/lah-commit-message` — Write conventional commit messages
+- `/lah-plan-task` — Decompose a task before coding
+- `/lah-review-code` — Structured code review
+- `/lah-debug-it` — Scientific debugging method
+
+### Course Agents Available
+- `@lah-code-reviewer` — Read-only code review (sonnet)
+- `@lah-planner` — Architecture planning, no writes (opus)
+- `@lah-debugger` — Full-access bug fixing (inherit model)
+- `@lah-explainer` — Quick code explanations (haiku)
+
+### Quality Hooks Active
+Five PostToolUse hooks run on every file write:
+1. TypeScript quality (no `any`, no `@ts-ignore`)
+2. React patterns (no unnecessary `"use client"`, no useEffect for data fetching)
+3. Tailwind cn() usage (no raw className concatenation)
+4. File size guard (200 line soft limit)
+5. Secret detection (no hardcoded API keys)
+
+When a hook provides feedback, explain to the student what was detected and how you're fixing it.
+<!-- LAH-COURSE-END -->
