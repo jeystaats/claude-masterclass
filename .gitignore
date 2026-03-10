@@ -53,3 +53,6 @@ package-lock.json
 
 # Session context files written by start.sh — not committed
 **/.claude/session.md
+
+# GSD workflow docs — internal planning only, not for students
+.planning/
