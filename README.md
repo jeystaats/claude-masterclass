@@ -1,95 +1,104 @@
 # Claude Code Mastery — Starter Kit
 
-A working Next.js 16 app you can build in immediately. Clone it, run two commands, and you're ready for your first Claude Code session.
-
----
-
-## Prerequisites
-
-- **Node.js 20+** — [nodejs.org](https://nodejs.org)
-- **pnpm 9+** — `npm install -g pnpm@9`
-- **Claude Code** — [claude.ai/code](https://claude.ai/code)
-- **Git**
-
----
+A production-ready Next.js starter kit for the Claude Code Mastery course. Installs a team of powerful AI agents globally, so every project you build gets expert-level help automatically.
 
 ## Quick Start
 
 ```bash
-# 1. Clone the repo
-git clone https://github.com/your-org/claude-masterclass-starter.git
-cd claude-masterclass-starter
-
-# 2. Install dependencies and Claude Code config
-bash install.sh
-
-# 3. Start the dev server
-bash start.sh
+bash <(curl -fsSL https://raw.githubusercontent.com/jeystaats/claude-masterclass/main/install.sh)
 ```
 
-4. Open the module you're working on in the course and read the brief.
-5. Open Claude Code in your project folder: `claude` — then describe your first task.
+Then:
 
-The app runs at **http://localhost:3000**.
+```bash
+cd ~/Documents/claude-mastery-starter
+pnpm install
+pnpm dev        # http://localhost:3000
+claude          # open Claude Code in the project
+```
 
----
+## What Gets Installed
 
-## What's Included
+### Agents (globally in `~/.claude/agents/`)
 
-| Path | What it is |
-|------|------------|
-| `src/app/` | Next.js App Router pages |
-| `src/lib/utils.ts` | `cn()` utility (clsx + tailwind-merge) |
-| `.claude/` | Claude Code config: agents, skills, rules |
-| `install.sh` | Installs deps + copies Claude config |
-| `start.sh` | Starts dev server |
+A full AI development team installed once and available in every project:
 
----
+| Agent | Role |
+|-------|------|
+| `@agent-orchestrator` | Primary entry point — routes all tasks to the right specialists |
+| `@frontend-lead` | Creative frontend direction + component/SSR routing |
+| `@backend-lead` | Data, state, auth, payments — routes to backend specialists |
+| `@saas-stack-architect` | SaaS stack decisions: Clerk, Stripe, Convex, Resend |
+| `@convex-expert` | Convex schema design, queries, mutations, real-time patterns |
+| `@react-component-architect` | Component review, CVA patterns, prop drilling fixes |
+| `@security-sentinel` | Security audit, OWASP, auth patterns, secret management |
+| `@nextjs-ssr-optimizer` | Server/client component boundaries, hydration, RSC |
+
+### Skills (globally in `~/.claude/skills/`)
+
+| Skill | What it does |
+|-------|-------------|
+| `/lah-explain-code` | Explains code with analogies and step-by-step breakdowns |
+| `/lah-plan-task` | Decomposes a task before writing any code |
+| `/lah-commit-message` | Writes conventional commit messages |
+| `/lah-review-code` | Structured code review for quality and correctness |
+| `/lah-debug-it` | Scientific debugging with root cause analysis |
+
+### Quality Hooks
+
+Five hooks that run on every file write and teach while they enforce:
+
+1. **TypeScript quality** — catches `any` types and `@ts-ignore`
+2. **React patterns** — flags unnecessary `"use client"`, useEffect for data fetching
+3. **Tailwind cn() usage** — prevents raw className string concatenation
+4. **File size guard** — soft 200-line limit with split suggestions
+5. **Secret detector** — catches hardcoded API keys and credentials
+
+### The Next.js Project
+
+A clean Next.js 16 + React 19 + Tailwind v4 + TypeScript scaffold ready to build on:
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with metadata
+│   └── page.tsx            # Home page
+└── lib/
+    └── utils.ts            # cn() utility (clsx + tailwind-merge)
+```
+
+## Stack
+
+| Layer | Tech |
+|-------|------|
+| Framework | Next.js 16 + React 19 |
+| Language | TypeScript (strict) |
+| Styling | Tailwind CSS v4 |
+| Package manager | pnpm |
+
+## Prerequisites
+
+- macOS or Linux (Windows: use WSL2)
+- Internet connection for the installer
+
+The installer handles everything else: Homebrew, Git, jq, Node.js LTS via nvm, pnpm, Claude Code CLI.
 
 ## Troubleshooting
 
-### EACCES: permission denied when installing Claude Code
-
-Never use `sudo npm install -g @anthropic-ai/claude-code`. Use the native installer instead:
-
+**`EACCES: permission denied` on pnpm install**
 ```bash
-curl -fsSL https://claude.ai/install.sh | sh
+sudo chown -R $(whoami) ~/.npm
 ```
 
-This installs to `~/.local/bin`, which doesn't require root access.
+**`command not found: claude`**
+Close and reopen your terminal. The installer adds `claude` to your PATH via your shell profile.
 
----
+**Windows: `Execution policy` blocks the script**
+Install WSL2 first: `wsl --install`, then run the curl command inside WSL.
 
-### `claude: command not found` after install
+**Agents not showing up in Claude Code**
+Check they're installed: `ls ~/.claude/agents/`. Run `bash install.sh` again — it's idempotent.
 
-The installer puts Claude Code in `~/.local/bin`. Add it to your PATH:
+## Customizing Your Setup
 
-```bash
-# Add to ~/.zshrc or ~/.bashrc
-export PATH="$HOME/.local/bin:$PATH"
-
-# Apply immediately
-source ~/.zshrc   # or source ~/.bashrc
-```
-
-Then verify: `claude --version`
-
----
-
-### PowerShell: "running scripts is disabled on this system" (execution policy error)
-
-Open PowerShell **as Administrator** and run:
-
-```powershell
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-```
-
-Then close and reopen your terminal.
-
----
-
-## Next Steps
-
-Once the server is running and Claude Code is open, pick your first module from the course portal and follow its brief. Each module is self-contained — you build one thing, ship it, and move on.
-
-See `UPGRADING.md` to personalize your Claude config and grow beyond course defaults.
+See [UPGRADING.md](./UPGRADING.md) for how to extend the agents, add your own skills, and evolve beyond the course defaults.

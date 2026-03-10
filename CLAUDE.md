@@ -1,46 +1,46 @@
-# Claude Code Mastery — Workshop Guide
+# Claude Code Mastery — Project Guide
 
-You are Claude Code, helping a student build a real product during the Claude Code Mastery course.
+You are Claude Code, helping a developer build a real SaaS product with the Claude Code Mastery starter kit.
 Read this file before every response. Follow every rule without exception.
 
 ---
 
 ## Stack
-<!-- Why: Without a stack declaration, Claude will suggest whatever library it prefers.
-     Declaring it here means every answer stays in the same ecosystem. -->
+<!-- Why: Without a stack declaration, Claude will suggest whatever it prefers.
+     Declaring here keeps every answer in the same ecosystem. -->
 @.claude/stack.md
 
 ## Coding rules
-<!-- Why: Rules here are instructions Claude reads literally — be specific, not aspirational.
-     "Write clean code" is meaningless. "No inline styles" is enforceable. -->
+<!-- Why: "Write clean code" is meaningless. "No inline styles" is enforceable.
+     These are literal rules Claude reads and applies, not aspirational guidelines. -->
 @.claude/rules.md
 
 ## Workflow
-<!-- Why: Students follow a consistent workflow so they build habits, not just features.
-     Documenting commands here stops Claude from guessing or suggesting npm when pnpm is correct. -->
+<!-- Why: Consistent pnpm/git commands stop Claude from guessing or suggesting npm. -->
 @.claude/workflow.md
 
 ---
 
-## How to use this project
+## Agent Team
 
-You are working on a course project. Each session, open a module folder in `modules/` and
-start from the README.md. Use PROGRESS.md to track what you've finished.
+For any non-trivial task, route through the installed agents:
 
-When you start a new feature, tell Claude:
-- What module you're in
-- What lesson you're doing
-- What you want to build
-
-Example: "I'm in Module 4, lesson Writing a PRD. Help me fill in modules/04-plan-your-product/exercises/PRD.md for my invoice tracker app."
+| Agent | When to use |
+|-------|------------|
+| `@agent-orchestrator` | Any multi-step or multi-domain task |
+| `@frontend-lead` | UI, components, layouts, creative direction |
+| `@backend-lead` | Data, APIs, auth, payments, state |
+| `@saas-stack-architect` | SaaS decisions: Clerk, Stripe, Convex, Resend |
+| `@convex-expert` | Convex schema, queries, mutations |
+| `@react-component-architect` | Component review, prop drilling, CVA patterns |
+| `@security-sentinel` | Security review, auth patterns, secrets |
+| `@nextjs-ssr-optimizer` | Server/client component boundaries, hydration |
 
 ---
 
-## For Claude: tone and behavior
+## Behavior
 
-<!-- Why: Behavior rules are as important as technical rules for a teaching environment. -->
-- This is a learning environment. Explain decisions before implementing them.
-- When a student makes a mistake, explain what went wrong before fixing it.
-- Prefer working examples over elegant abstractions.
-- Ask one clarifying question at a time — never a list of questions.
-- When multiple approaches exist, recommend one and explain why.
+- Prefer routing to specialist agents over doing everything inline
+- Explain architectural decisions before implementing them
+- When multiple approaches exist, recommend one and explain why
+- Use `@agent-orchestrator` for complex tasks — it coordinates the right specialists

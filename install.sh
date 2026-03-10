@@ -291,7 +291,7 @@ install_global_config() {
   # --- Agents ---
   if [ -d "$script_dir/global-config/agents" ]; then
     mkdir -p "$HOME/.claude/agents"
-    for agent_file in "$script_dir/global-config/agents"/lah-*.md; do
+    for agent_file in "$script_dir/global-config/agents"/*.md; do
       [ -f "$agent_file" ] || continue
       local agent_name
       agent_name=$(basename "$agent_file")
@@ -400,10 +400,18 @@ main() {
   log_info "Next steps:"
   log_info "  1. Run 'claude' to authenticate via browser"
   log_info "  2. cd $STARTER_DEST"
-  log_info "  3. pnpm install"
-  log_info "  4. pnpm dev"
-  log_info "  5. Installed: 5 skills, 4 agents, 5 hooks"
-  log_info "     Run '/lah-explain-code' in Claude Code to try a skill"
+  log_info "  3. pnpm install && pnpm dev"
+  log_info "  4. Open Claude Code: claude"
+  log_info ""
+  log_info "Installed globally into ~/.claude/:"
+  log_info "  Agents: @agent-orchestrator, @frontend-lead, @backend-lead,"
+  log_info "          @saas-stack-architect, @convex-expert,"
+  log_info "          @react-component-architect, @security-sentinel,"
+  log_info "          @nextjs-ssr-optimizer"
+  log_info "  Skills: /lah-explain-code, /lah-plan-task, /lah-commit-message,"
+  log_info "          /lah-review-code, /lah-debug-it"
+  log_info "  Hooks:  TypeScript quality, React antipatterns, cn() usage,"
+  log_info "          file size guard, secret detector"
   echo ""
 }
 

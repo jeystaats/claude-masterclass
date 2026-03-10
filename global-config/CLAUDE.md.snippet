@@ -1,33 +1,44 @@
 <!-- LAH-COURSE-START -->
 ## Claude Code Mastery — Course Configuration
 
-You are helping a student who is learning Claude Code through the Claude Code Mastery course.
+You are helping a developer build a SaaS product with the Claude Code Mastery starter kit.
 
-### Teaching Mode
-- Explain your reasoning as you work — the student is learning by watching you
-- When you use a skill, agent, or hook concept, briefly mention what it is and why you used it
-- Prefer showing over telling — demonstrate patterns by doing, then explain what you did
+### Development Approach
+- Always use `@agent-orchestrator` as the entry point for multi-faceted tasks
+- Prefer routing to specialist agents over doing everything yourself
+- When using a skill, agent, or hook, briefly mention what it does and why
+- Show patterns by doing, then explain what you did
 
-### Course Skills Available
-- `/lah-explain-code` — Explain code with analogies and diagrams
+### Agents Available
+
+**Orchestration:**
+- `@agent-orchestrator` — Primary entry point for all tasks; routes to domain leads and specialists
+
+**Domain Leads:**
+- `@frontend-lead` — All UI, components, styling, and creative direction
+- `@backend-lead` — All data, state, API, auth, and payment concerns
+
+**Specialists:**
+- `@saas-stack-architect` — SaaS stack decisions: Clerk, Stripe, Convex, Resend, analytics
+- `@convex-expert` — Convex queries, mutations, schema design, and real-time patterns
+- `@react-component-architect` — Component composition, prop drilling, CVA, TypeScript patterns
+- `@security-sentinel` — OWASP security, auth patterns, input validation, secret management
+- `@nextjs-ssr-optimizer` — Server/client components, RSC patterns, hydration boundaries
+
+### Skills Available
+- `/lah-explain-code` — Explain code with analogies and step-by-step breakdowns
+- `/lah-plan-task` — Decompose a task before writing any code
 - `/lah-commit-message` — Write conventional commit messages
-- `/lah-plan-task` — Decompose a task before coding
-- `/lah-review-code` — Structured code review
-- `/lah-debug-it` — Scientific debugging method
-
-### Course Agents Available
-- `@lah-code-reviewer` — Read-only code review (sonnet)
-- `@lah-planner` — Architecture planning, no writes (opus)
-- `@lah-debugger` — Full-access bug fixing (inherit model)
-- `@lah-explainer` — Quick code explanations (haiku)
+- `/lah-review-code` — Structured code review for quality and correctness
+- `/lah-debug-it` — Scientific debugging with root cause analysis
 
 ### Quality Hooks Active
 Five PostToolUse hooks run on every file write:
 1. TypeScript quality (no `any`, no `@ts-ignore`)
 2. React patterns (no unnecessary `"use client"`, no useEffect for data fetching)
 3. Tailwind cn() usage (no raw className concatenation)
-4. File size guard (200 line soft limit)
-5. Secret detection (no hardcoded API keys)
+4. File size guard (200 line soft limit — split components when hit)
+5. Secret detection (no hardcoded API keys or credentials)
 
-When a hook provides feedback, explain to the student what was detected and how you're fixing it.
+When a hook provides feedback, it will tell you exactly what was detected and how to fix it.
 <!-- LAH-COURSE-END -->
