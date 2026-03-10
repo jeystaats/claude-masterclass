@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** A hands-on course companion that makes Claude Code Mastery lessons tangible — one command to bootstrap, module folders for organized work, global skills/agents/hooks that teach while they enforce.
-**Current focus:** Phase 2 — Starter Kit Scaffold
+**Current focus:** Phase 2 — Global Config Content
 
 ## Current Position
 
-Phase: 1 of 5 complete (Installer Foundation)
-Plan: 3 of 3 complete — Phase 1 DONE
-Status: Plan 01-03 complete — backup_claude_config + merge_settings added to install.sh; Phase 1 all 3 plans complete
-Last activity: 2026-03-10 — Plan 01-03 complete (jq deep_merge with array dedup, timestamped ~/.claude backup, post-install backup path display)
+Phase: 2 of 5 (Global Config Content)
+Plan: 0 of 4 in current phase
+Status: Planned — ready to execute
+Last activity: 2026-03-10 — Phase 2 planned (4 plans in 2 waves, verification passed)
 
 Progress: [███░░░░░░░] 20%
 
@@ -70,5 +70,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: Completed 01-03-PLAN.md — Phase 1 complete. backup_claude_config (timestamped ~/.claude backup) + merge_settings (jq deep_merge with array concatenation and unique dedup) added to install.sh. install.sh is production-ready.
+Stopped at: Phase 2 planned and verified — ready to execute
 Resume file: None
