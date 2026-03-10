@@ -82,29 +82,12 @@ get_skills_for_module() {
       ;;
     4)
       printf '%s\n' \
-        "- \`/lah-plan-task\` — Decompose a task before writing any code" \
-        "- \`/lah-explain-code\` — Explain any code with analogies and step-by-step breakdowns"
-      ;;
-    5)
-      printf '%s\n' \
         "- \`/lah-explain-code\` — Explain any code with analogies and step-by-step breakdowns" \
+        "- \`/lah-commit-message\` — Write conventional commit messages automatically" \
+        "- \`/lah-plan-task\` — Decompose a task before writing any code" \
         "- \`/lah-review-code\` — Review code for quality, style, and correctness"
       ;;
-    6)
-      printf '%s\n' \
-        "- \`/lah-explain-code\` — Explain any code with analogies and step-by-step breakdowns" \
-        "- \`/lah-commit-message\` — Write conventional commit messages automatically" \
-        "- \`/lah-plan-task\` — Decompose a task before writing any code" \
-        "- \`/lah-review-code\` — Review code for quality, style, and correctness" \
-        "- \`/lah-debug-it\` — Systematic debugging with root cause analysis"
-      ;;
-    7)
-      printf '%s\n' \
-        "- \`/lah-commit-message\` — Write conventional commit messages automatically" \
-        "- \`/lah-review-code\` — Review code for quality, style, and correctness" \
-        "- \`/lah-debug-it\` — Systematic debugging with root cause analysis"
-      ;;
-    8|9)
+    5|6|7|8|9)
       printf '%s\n' \
         "- \`/lah-explain-code\` — Explain any code with analogies and step-by-step breakdowns" \
         "- \`/lah-commit-message\` — Write conventional commit messages automatically" \
