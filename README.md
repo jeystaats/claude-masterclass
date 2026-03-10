@@ -1,6 +1,6 @@
 # Claude Code Mastery — Starter Kit
 
-A production-ready Next.js starter kit for the Claude Code Mastery course. Installs a team of powerful AI agents globally, so every project you build gets expert-level help automatically.
+A production-ready Next.js starter kit for the Claude Code Mastery course. Installs a full team of powerful AI agents, skills, and quality hooks globally — so every project you build gets expert-level help automatically.
 
 ## Quick Start
 
@@ -21,18 +21,44 @@ claude          # open Claude Code in the project
 
 ### Agents (globally in `~/.claude/agents/`)
 
-A full AI development team installed once and available in every project:
+A full AI development team, installed once and available in every project you work on:
 
+**Orchestration & Planning**
 | Agent | Role |
 |-------|------|
 | `@agent-orchestrator` | Primary entry point — routes all tasks to the right specialists |
+| `@deep-reasoning-planner` | Complex architecture decisions with structured trade-off analysis |
+
+**Domain Leads**
+| Agent | Role |
+|-------|------|
 | `@frontend-lead` | Creative frontend direction + component/SSR routing |
 | `@backend-lead` | Data, state, auth, payments — routes to backend specialists |
-| `@saas-stack-architect` | SaaS stack decisions: Clerk, Stripe, Convex, Resend |
+
+**Creative**
+| Agent | Role |
+|-------|------|
+| `@creative-director` | Award-worthy concepts, 2-3 creative directions before any implementation |
+| `@animation-specialist` | GSAP, Framer Motion, micro-interactions, hover effects, timelines |
+| `@visual-dna-analyst` | Extracts design language from any website, app, or visual reference |
+
+**Backend Specialists**
+| Agent | Role |
+|-------|------|
+| `@saas-stack-architect` | SaaS stack decisions: Clerk, Stripe, Convex, Resend, analytics |
 | `@convex-expert` | Convex schema design, queries, mutations, real-time patterns |
-| `@react-component-architect` | Component review, CVA patterns, prop drilling fixes |
-| `@security-sentinel` | Security audit, OWASP, auth patterns, secret management |
-| `@nextjs-ssr-optimizer` | Server/client component boundaries, hydration, RSC |
+
+**Frontend Specialists**
+| Agent | Role |
+|-------|------|
+| `@react-component-architect` | Component composition, CVA patterns, prop drilling fixes, TypeScript |
+| `@nextjs-ssr-optimizer` | Server/client component boundaries, hydration, RSC patterns |
+| `@storybook-dls-architect` | Component documentation, design system stories (CSF3) |
+
+**Quality**
+| Agent | Role |
+|-------|------|
+| `@security-sentinel` | OWASP security, auth patterns, input validation, secret management |
 
 ### Skills (globally in `~/.claude/skills/`)
 
@@ -65,6 +91,21 @@ src/
 │   └── page.tsx            # Home page
 └── lib/
     └── utils.ts            # cn() utility (clsx + tailwind-merge)
+```
+
+## How the Agent Team Works
+
+The agents collaborate. For any non-trivial task, tell `@agent-orchestrator` what you want to build and it will route to the right specialists in the right order:
+
+```
+You: "Build a SaaS dashboard with auth and billing"
+
+@agent-orchestrator routes to:
+  → @saas-stack-architect (Clerk + Stripe + Convex decisions)
+  → @creative-director (2-3 visual directions for the dashboard)
+  → @frontend-lead (component architecture)
+  → @convex-expert (schema + queries)
+  → @security-sentinel (auth patterns)
 ```
 
 ## Stack

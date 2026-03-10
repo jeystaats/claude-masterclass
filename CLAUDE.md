@@ -25,16 +25,34 @@ Read this file before every response. Follow every rule without exception.
 
 For any non-trivial task, route through the installed agents:
 
+**Orchestration**
 | Agent | When to use |
 |-------|------------|
-| `@agent-orchestrator` | Any multi-step or multi-domain task |
+| `@agent-orchestrator` | Any multi-step or multi-domain task — start here |
+| `@deep-reasoning-planner` | Complex architecture decisions, trade-off analysis |
+
+**Domain Leads**
+| Agent | When to use |
+|-------|------------|
 | `@frontend-lead` | UI, components, layouts, creative direction |
 | `@backend-lead` | Data, APIs, auth, payments, state |
+
+**Creative**
+| Agent | When to use |
+|-------|------------|
+| `@creative-director` | Visual concepts, "make it pop", award-worthy UI |
+| `@animation-specialist` | GSAP, Framer, micro-interactions, hover effects |
+| `@visual-dna-analyst` | Analyze any website/app and extract its design language |
+
+**Specialists**
+| Agent | When to use |
+|-------|------------|
 | `@saas-stack-architect` | SaaS decisions: Clerk, Stripe, Convex, Resend |
 | `@convex-expert` | Convex schema, queries, mutations |
 | `@react-component-architect` | Component review, prop drilling, CVA patterns |
 | `@security-sentinel` | Security review, auth patterns, secrets |
 | `@nextjs-ssr-optimizer` | Server/client component boundaries, hydration |
+| `@storybook-dls-architect` | Component documentation, Storybook stories |
 
 ---
 
