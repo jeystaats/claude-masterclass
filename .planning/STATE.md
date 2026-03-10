@@ -50,6 +50,9 @@ Recent decisions affecting current work:
 - [Roadmap]: Phase 4 research flag acknowledged — instructional CLAUDE.md comment style is novel; test with one real beginner before scaling to all 9 modules
 - [Phase 01-installer-foundation]: .env.example negation rule added so template tracked while .env secrets remain ignored
 - [Phase 01-installer-foundation]: workshop-settings.json uses empty arrays (not omitted keys) so jq merge can safely extend without creating missing keys
+- [01-01]: install_jq() pulled into 01-01 (not 01-03) — jq is prerequisite for settings.json merge; forward-pull avoids dependency gap
+- [01-01]: nvm guard sources nvm.sh before command_exists nvm check — nvm is a shell function, detection must come after sourcing
+- [01-01]: Claude Code install guarded with command_exists claude to avoid native installer lock file bug (GitHub #13599)
 
 ### Pending Todos
 
@@ -63,5 +66,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-10
-Stopped at: Completed 01-02-PLAN.md — .env.example, .gitignore Claude Code entries, config/workshop-settings.json skeleton
+Stopped at: Completed 01-01-PLAN.md — install.sh with idempotent Homebrew, git, jq, nvm, Node.js LTS, pnpm, and Claude Code CLI installation; OS detection; WSL2 exit; post-install instructions
 Resume file: None
