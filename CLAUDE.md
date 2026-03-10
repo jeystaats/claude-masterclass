@@ -68,6 +68,7 @@ Five slash commands installed globally via `~/.claude/skills/`:
 | `/commit` | Writes a proper conventional commit message |
 | `/review` | Structured code review with prioritized findings |
 | `/debug` | Scientific debugging: hypothesize → test → verify |
+| `/prd` | Check, validate, or create the Project Requirements Document |
 
 ### visual-explainer (installed separately)
 
@@ -83,6 +84,70 @@ The `visual-explainer` plugin is also installed. It generates self-contained HTM
 | `/share` | Deploy any generated HTML to Vercel and get a live URL |
 
 Use these proactively: when explaining architecture, pitching a feature, reviewing changes, or any time a picture beats a wall of text. The **slide mode** (`/generate-slides`) is especially good for presenting module exercises or showcasing what you've built to stakeholders.
+
+---
+
+## Project Documents
+
+These files live in `docs/` and are your source of truth throughout the course:
+
+| File | Purpose | Created by |
+|------|---------|------------|
+| `docs/prd.md` | Product Requirements Document — what you're building and why | `/prd` skill |
+| `docs/backlog.md` | Feature backlog and sprint tracking | `/prd` skill |
+| `docs/architecture.md` | Tech decisions, data flow, schema overview | Manual / `/plan` |
+
+The templates are pre-created. Fill them in by running `/prd` and answering 6 questions.
+
+---
+
+## Project Grounding
+
+<!-- Why: Students who build without a PRD drift. Features get added that don't belong.
+     Designs diverge from tokens. This section makes Claude the consistency enforcer. -->
+
+### At Every Session Start
+Before helping with ANY build task, silently check whether these files exist:
+- `docs/prd.md` — the product requirements document
+- `docs/backlog.md` — the ticket backlog
+- `src/styles/tokens.css` or `globals.css` — the design language tokens
+
+Then ask (only once per session, naturally woven in):
+> "Before we dive in — do you have a PRD and tickets set up? I want to make sure what we're building is grounded in your plan."
+
+**If PRD is missing:**
+> "You don't have a PRD yet — that's fine, it's quick to create. Run `/prd` and I'll walk you through it in 5 questions. It'll save hours of scope creep later."
+
+Don't block progress. Help with what they asked, then remind at the end:
+> "By the way — once you have a PRD, everything we build will be anchored to it. Worth doing before the next session."
+
+**If PRD exists but tickets are missing:**
+> "Your PRD looks good. Want me to generate GitHub tickets from your Must Have features? I can draft them for you to review: `@product-owner — Create GitHub issues for every Must Have feature in docs/prd.md. One issue per feature, with user story and acceptance criteria.`"
+
+### While Building Features
+Before implementing anything, check it against the PRD:
+> "Let me cross-check this against your PRD first."
+
+If it's not in the PRD, flag it:
+> "This isn't in your PRD's Must Have list. Is this new scope, or did the plan change? If it's new scope, let's add it to docs/backlog.md so we track it."
+
+### While Building UI
+Before writing any component or page, verify the design tokens exist and reference them:
+> "I'll use the tokens from your tokens.css — this keeps everything visually consistent. If you don't have a tokens.css yet, run `/prd` first, then Module 5 sets up your design system."
+
+If hardcoded colors or sizes appear anywhere:
+> "I see hardcoded values here. These should come from your design tokens — otherwise changing the brand color later means finding every hex value in the codebase."
+
+### Module Awareness
+Ask which modules the student has completed to calibrate expectations:
+> "Which modules have you finished so far? That tells me what planning documents and design system you should have in place."
+
+Use the answer to validate:
+- Module 4+ done → should have PRD, backlog, architecture.md
+- Module 5+ done → should have tokens.css, at least 3 components, Storybook stories
+- Module 6+ done → should have feature branches, GitHub issues, at least one merged PR
+
+If behind: "No problem — let's get that set up now so the rest of the build goes smoothly."
 
 ---
 
