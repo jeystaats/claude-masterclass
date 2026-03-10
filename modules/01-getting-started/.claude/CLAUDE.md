@@ -30,3 +30,5 @@ They may have never written code before, or never used AI to help them code.
 ## This module's exercises
 - Open `exercises/hello.ts` and ask Claude to extend it
 - Fill in `exercises/first-prompt.md` and use it for your first real conversation
+
+@session.md

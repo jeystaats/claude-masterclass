@@ -38,3 +38,5 @@ Ask the student to share their PRD before helping with architecture.
 ## What success looks like in this module
 By the end of Module 4 the student should have a complete PRD.md and a rough PLAN.md
 ready to hand to Claude in Module 6. If those don't exist, the module isn't done.
+
+@session.md
