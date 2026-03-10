@@ -13,7 +13,7 @@ Overhaul the `jeystaats/claude-masterclass` GitHub repo into a course companion 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Installer Foundation** - Safe, idempotent install.sh that merges into ~/.claude/ without destroying existing config ✓ (2026-03-10)
-- [ ] **Phase 2: Global Config Content** - The 5 skills, agents, and teaching hooks that install.sh deploys
+- [x] **Phase 2: Global Config Content** - The 5 skills, agents, and teaching hooks that install.sh deploys ✓ (2026-03-10)
 - [ ] **Phase 3: Module Structure and CLAUDE.md** - 9 module folders, root CLAUDE.md, and module-scoped CLAUDE.md files
 - [ ] **Phase 4: Session Launcher** - start.sh with module-context injection and progressive disclosure
 - [ ] **Phase 5: Scaffold and Docs** - Verified Next.js scaffold, cn() utility, and student-facing README
@@ -147,7 +147,7 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Installer Foundation | 3/3 | ✓ Complete | 2026-03-10 |
-| 2. Global Config Content | 0/4 | Not started | - |
+| 2. Global Config Content | 4/4 | ✓ Complete | 2026-03-10 |
 | 3. Module Structure and CLAUDE.md | 0/4 | Not started | - |
 | 4. Session Launcher | 0/2 | Not started | - |
 | 5. Scaffold and Docs | 0/3 | Not started | - |
