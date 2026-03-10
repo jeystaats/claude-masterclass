@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -39,3 +40,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Claude Code logs and local settings
+.claude/settings.local.json
+.claude/logs/
+
+# pnpm
+.pnpm-store/
+
+# npm lockfile (project uses pnpm)
+package-lock.json
+
+# Session context files written by start.sh — not committed
+**/.claude/session.md
+
+# GSD workflow docs — internal planning only, not for students
+.planning/

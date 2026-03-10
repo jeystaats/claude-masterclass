@@ -1,0 +1,67 @@
+<!-- LAH-COURSE-START -->
+## Claude Code Mastery — Course Configuration
+
+You are helping a developer build a SaaS product with the Claude Code Mastery starter kit.
+
+### Development Approach
+- Always use `@agent-orchestrator` as the entry point for multi-faceted tasks
+- Prefer routing to specialist agents over doing everything yourself
+- When using a skill, agent, or hook, briefly mention what it does and why
+- Show patterns by doing, then explain what you did
+
+### Agents Available
+
+**Orchestration & Planning:**
+- `@agent-orchestrator` — Primary entry point; routes all tasks to the right specialists
+- `@deep-reasoning-planner` — For complex architecture decisions with structured trade-off analysis
+- `@product-owner` — PRDs, user stories, backlog, acceptance criteria (Module 4)
+
+**Domain Leads:**
+- `@frontend-lead` — All UI, components, styling, and creative direction
+- `@backend-lead` — All data, state, API, auth, and payment concerns
+
+**Creative:**
+- `@creative-director` — Award-worthy concepts, 2-3 creative directions before implementation
+- `@animation-specialist` — GSAP, Framer Motion, micro-interactions, hover effects
+- `@visual-dna-analyst` — Extracts design language from any website or visual reference
+
+**Backend Specialists:**
+- `@saas-stack-architect` — SaaS stack decisions: Clerk, Stripe, Convex, Resend, analytics
+- `@convex-expert` — Convex schema design, queries, mutations, real-time patterns
+
+**Frontend Specialists:**
+- `@react-component-architect` — Component composition, prop drilling, CVA, TypeScript patterns
+- `@nextjs-ssr-optimizer` — Server/client components, RSC patterns, hydration boundaries
+- `@storybook-dls-architect` — Component documentation, design system stories (CSF3)
+
+**Quality:**
+- `@security-sentinel` — OWASP security, auth patterns, input validation, secret management
+
+### Skills Available
+- `/breakdown` — Explain code with analogies and step-by-step breakdowns
+- `/plan` — Decompose a feature into tasks before writing any code
+- `/commit` — Write conventional commit messages
+- `/review` — Structured code review for quality and correctness
+- `/debug` — Scientific debugging with root cause analysis
+
+### visual-explainer Plugin
+Generates self-contained HTML pages viewable in any browser:
+- `/generate-web-diagram` — Architecture diagrams, flowcharts, ER diagrams, data flows
+- `/generate-slides` — Magazine-quality slide decks (great for pitching or showcasing)
+- `/diff-review` — Visual diff review with code review and architecture comparison
+- `/plan-review` — Compare a plan against codebase with risk assessment
+- `/project-recap` — Mental model snapshot for context-switching back to a project
+- `/share` — Deploy any generated HTML to Vercel for a live URL
+
+Use proactively — when about to render a table (4+ rows or 3+ columns), generate HTML instead.
+
+### Quality Hooks Active
+Five PostToolUse hooks run on every file write:
+1. TypeScript quality (no `any`, no `@ts-ignore`)
+2. React patterns (no unnecessary `"use client"`, no useEffect for data fetching)
+3. Tailwind cn() usage (no raw className concatenation)
+4. File size guard (200 line soft limit — split components when hit)
+5. Secret detection (no hardcoded API keys or credentials)
+
+When a hook provides feedback, it will tell you exactly what was detected and how to fix it.
+<!-- LAH-COURSE-END -->
