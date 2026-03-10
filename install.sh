@@ -387,32 +387,38 @@ main() {
 
   echo ""
   echo "=================================="
-  echo "  Installation complete!"
+  echo "  All done!"
   echo "=================================="
   echo ""
-  if [ -d "$HOME/.claude" ]; then
-    local latest_backup
-    latest_backup=$(find "$HOME/.claude" -maxdepth 1 -name "backup-*" -type d 2>/dev/null | sort | tail -1)
-    if [ -n "$latest_backup" ]; then
-      log_info "Backup: $latest_backup"
-    fi
-  fi
-  log_info "Next steps:"
-  log_info "  1. Run 'claude' to authenticate via browser"
-  log_info "  2. cd $STARTER_DEST"
-  log_info "  3. pnpm install && pnpm dev"
-  log_info "  4. Open Claude Code: claude"
-  log_info ""
-  log_info "Installed globally into ~/.claude/:"
-  log_info "  Agents: @agent-orchestrator, @frontend-lead, @backend-lead,"
-  log_info "          @saas-stack-architect, @convex-expert,"
-  log_info "          @react-component-architect, @security-sentinel,"
-  log_info "          @nextjs-ssr-optimizer"
-  log_info "  Skills: /lah-explain-code, /lah-plan-task, /lah-commit-message,"
-  log_info "          /lah-review-code, /lah-debug-it"
-  log_info "  Hooks:  TypeScript quality, React antipatterns, cn() usage,"
-  log_info "          file size guard, secret detector"
+  echo "  Installed into ~/.claude/:"
+  echo "  ✓ 13 agents  (orchestrator, frontend/backend leads, creative, specialists)"
+  echo "  ✓ 5 skills   (/lah-explain-code, /lah-plan-task, /lah-commit-message, ...)"
+  echo "  ✓ 5 hooks    (TypeScript, React, cn(), file size, secrets)"
   echo ""
+  echo "  Your workspace: $STARTER_DEST"
+  echo ""
+
+  # Check if already authenticated — if so, launch directly
+  # claude --version exits 0 and shows version, so we check for a running config
+  if command_exists claude; then
+    echo "  Opening your workspace in Claude Code..."
+    echo "  (If this is your first time, you'll be prompted to log in with your Anthropic account)"
+    echo ""
+    cd "$STARTER_DEST"
+    log_info "Installing project dependencies..."
+    pnpm install --silent 2>/dev/null || pnpm install
+    echo ""
+    echo "  Tip: Tell Claude which module you're working on and it will guide you."
+    echo "  Tip: Run 'bash start.sh' for a step-by-step module exercise guide."
+    echo ""
+    exec claude
+  else
+    log_info "Run these commands to get started:"
+    log_info "  cd $STARTER_DEST"
+    log_info "  pnpm install"
+    log_info "  claude"
+    echo ""
+  fi
 }
 
 main "$@"
