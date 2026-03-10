@@ -3,7 +3,7 @@ name: security-sentinel
 description: Use this agent for all security concerns including vulnerability detection, OWASP Top 10, authentication/authorization, input validation, XSS/injection prevention, and security audits. Trigger phrases include "security", "vulnerability", "XSS", "injection", "auth", "OWASP", "secrets", "sanitize", "validate".
 model: opus
 tools: Read, Grep, Glob
-skills: security-guidelines, project-conventions
+
 color: red
 ---
 

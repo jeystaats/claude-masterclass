@@ -30,6 +30,7 @@ For any non-trivial task, route through the installed agents:
 |-------|------------|
 | `@agent-orchestrator` | Any multi-step or multi-domain task — start here |
 | `@deep-reasoning-planner` | Complex architecture decisions, trade-off analysis |
+| `@product-owner` | PRDs, user stories, backlog, acceptance criteria |
 
 **Domain Leads**
 | Agent | When to use |

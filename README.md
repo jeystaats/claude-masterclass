@@ -27,6 +27,7 @@ A full AI development team, installed once and available in every project you wo
 | Agent | Role |
 |-------|------|
 | `@agent-orchestrator` | Primary entry point — routes all tasks to the right specialists |
+| `@product-owner` | PRDs, user stories, backlog, acceptance criteria |
 | `@deep-reasoning-planner` | Complex architecture decisions with structured trade-off analysis |
 
 **Domain Leads**
@@ -69,6 +70,7 @@ A full AI development team, installed once and available in every project you wo
 | `/commit` | Writes conventional commit messages |
 | `/review` | Structured code review with prioritized findings |
 | `/debug` | Scientific debugging with root cause analysis |
+| `/visual-explainer` | Generates interactive HTML diagrams and concept boards |
 
 ### Quality Hooks
 

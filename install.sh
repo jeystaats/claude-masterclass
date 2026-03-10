@@ -227,8 +227,7 @@ backup_claude_config() {
 }
 
 merge_settings() {
-  local script_dir
-  script_dir="$(cd "$(dirname "$0")" && pwd)"
+  local script_dir="$CONFIG_DIR"
   local incoming="${script_dir}/config/workshop-settings.json"
   local existing="$HOME/.claude/settings.json"
 
@@ -268,8 +267,7 @@ merge_settings() {
 # =============================================================================
 
 install_global_config() {
-  local script_dir
-  script_dir="$(cd "$(dirname "$0")" && pwd)"
+  local script_dir="$CONFIG_DIR"
 
   # --- Skills ---
   if [ -d "$script_dir/global-config/skills" ]; then
@@ -325,8 +323,7 @@ install_global_config() {
 }
 
 append_claude_md_snippet() {
-  local script_dir
-  script_dir="$(cd "$(dirname "$0")" && pwd)"
+  local script_dir="$CONFIG_DIR"
   local snippet="$script_dir/global-config/CLAUDE.md.snippet"
   local target="$HOME/.claude/CLAUDE.md"
 
@@ -377,6 +374,16 @@ main() {
   install_claude_code
   clone_starter_kit
 
+  # Resolve config directory — works for both curl-pipe and direct bash invocation.
+  # When run via `bash <(curl ...)`, $0 is "bash" and dirname gives the CWD, not
+  # the repo. After cloning, we fall back to STARTER_DEST which always has global-config/.
+  _raw_dir="$(cd "$(dirname "$0")" && pwd)"
+  if [ -d "$_raw_dir/global-config" ]; then
+    CONFIG_DIR="$_raw_dir"
+  else
+    CONFIG_DIR="$STARTER_DEST"
+  fi
+
   log_info "Configuring Claude Code settings..."
   backup_claude_config
   merge_settings
@@ -391,8 +398,8 @@ main() {
   echo "=================================="
   echo ""
   echo "  Installed into ~/.claude/:"
-  echo "  ✓ 13 agents  (orchestrator, frontend/backend leads, creative, specialists)"
-  echo "  ✓ 5 skills   (/breakdown, /plan, /commit, /review, /debug)"
+  echo "  ✓ 14 agents  (orchestrator, product owner, frontend/backend leads, creative, specialists)"
+  echo "  ✓ 6 skills   (/breakdown, /plan, /commit, /review, /debug, /visual-explainer)"
   echo "  ✓ 5 hooks    (TypeScript, React, cn(), file size, secrets)"
   echo ""
   echo "  Your workspace: $STARTER_DEST"
@@ -406,7 +413,7 @@ main() {
     echo ""
     cd "$STARTER_DEST"
     log_info "Installing project dependencies..."
-    pnpm install --silent 2>/dev/null || pnpm install
+    pnpm install
     echo ""
     echo "  Tip: Tell Claude which module you're working on and it will guide you."
     echo "  Tip: Run 'bash start.sh' for a step-by-step module exercise guide."

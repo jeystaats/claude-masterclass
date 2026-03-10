@@ -4,77 +4,92 @@ This guide is for after you've completed the course — when you're ready to mak
 
 ---
 
-## 1. Personalize
+## 1. Personalize Your Agents
 
-The course ships a set of agents and skills prefixed `lah-` (like-a-human). These are teaching examples. Replace them with your own.
+The course ships 13 agents into `~/.claude/agents/`. These are real production agents, not teaching examples. Customize them by editing the files directly.
 
-**Rename the prefix:**
+**Edit an agent:**
 ```bash
-# Example: rename lah-reviewer to your own handle
-mv .claude/agents/lah-reviewer.md .claude/agents/yourname-reviewer.md
+# Open any agent in your editor
+code ~/.claude/agents/agent-orchestrator.md
+
+# Or view all agents
+ls ~/.claude/agents/
 ```
 
-Update any references to the old name in your `.claude/CLAUDE.md` or other agent files.
+**Add your own agent:**
+```bash
+# Copy an existing one as a template
+cp ~/.claude/agents/react-component-architect.md ~/.claude/agents/my-specialist.md
+# Edit the name, description, and instructions inside
+```
 
-**Swap the global CLAUDE.md:**
-The course installs `.claude/CLAUDE.md` with conservative defaults tuned for learning. Once you're past the basics, replace it with your own. The course CLAUDE.md has comments marking each opinionated choice — use those as a starting point.
+**The YAML frontmatter** at the top of each agent file controls the name, description, model, and tools. Edit it to match your style.
 
 ---
 
-## 2. Extend
+## 2. Add Your Own Skills
 
-Add your own agents, skills, and hooks alongside the course files — don't delete the originals until you're sure you don't need them as reference.
+Skills live in `~/.claude/skills/`. Each skill is a directory with a `SKILL.md` file.
 
-**Add an agent:**
+**Create a new skill:**
 ```bash
-# Copy a lah-* file as a template
-cp .claude/agents/lah-reviewer.md .claude/agents/my-reviewer.md
-# Edit the name, description, and instructions
+mkdir -p ~/.claude/skills/my-skill
+cat > ~/.claude/skills/my-skill/SKILL.md << 'SKILL'
+---
+name: my-skill
+description: >
+  What this skill does and when it triggers.
+---
+
+# /my-skill — What it does
+
+## Instructions
+...
+SKILL
 ```
 
-**Add a skill:**
-```bash
-cp .claude/skills/lah-example.md .claude/skills/my-skill.md
-```
-
-**Add a hook:**
-Hooks live in `.claude/hooks/`. Each hook is a shell script that runs at a lifecycle point (pre-commit, post-tool-use, etc.). Copy an existing hook and modify the trigger and command.
-
-See the [Claude Code docs on hooks](https://docs.anthropic.com/claude-code/hooks) for the full lifecycle reference.
+The course ships: `/breakdown`, `/plan`, `/commit`, `/review`, `/debug`
 
 ---
 
-## 3. Evolve
+## 3. Extend Your Hooks
 
-The course defaults are intentionally conservative — good for learning, not always right for production. Module 9 covers migrating to a production-grade CLAUDE.md.
+Hooks live in `~/.claude/hooks/`. Each hook is a shell script that runs on Claude Code lifecycle events.
 
-Key differences from course defaults to production standards:
-- **Hooks:** Course hooks are illustrative. Production hooks enforce real quality gates (typecheck, lint, test).
-- **Agent autonomy:** Course agents ask for confirmation often. Production agents run more autonomously with `--dangerously-skip-permissions` on trusted tasks.
-- **CLAUDE.md scope:** The course uses a single global file. Production setups layer global + per-project + per-directory configs.
+**View your active hooks:**
+```bash
+ls ~/.claude/hooks/
+```
 
-When you're ready, follow Module 9's migration guide. It's a two-hour exercise, not a rewrite.
+**The 5 course hooks** (`lah-check-*.sh`) run on every file write and check for TypeScript quality, React patterns, cn() usage, file size, and secrets.
+
+**Add a custom hook:** Copy an existing hook and modify the trigger condition. See the [Claude Code hooks docs](https://docs.anthropic.com/claude-code/hooks) for the full lifecycle reference.
 
 ---
 
 ## 4. Update
 
-The starter kit is updated as new course modules ship. Pull updates without losing your changes:
+The starter kit is updated as the course evolves. Pull updates without losing your changes:
 
 ```bash
+cd ~/Documents/claude-mastery-starter
+
 # Pull course updates
 git pull origin main
 
 # Re-run install.sh — it's idempotent (safe to run multiple times)
-# It will not overwrite files you've modified
+# It will not overwrite files you've already customized
 bash install.sh
 ```
 
-If you want to refresh a specific course file, delete it first then re-run install.sh:
-```bash
-# Force-refresh a specific course file by removing it first
-rm .claude/agents/lah-reviewer.md
-bash install.sh
-```
+---
 
-If you hit merge conflicts in `.claude/`, keep your version — your personalizations take precedence over course updates.
+## 5. Graduate to a Production CLAUDE.md
+
+The course CLAUDE.md is intentionally conservative — good for learning. Production setups layer global + per-project + per-directory configs.
+
+Module 9 covers this migration. Key differences:
+- **Hooks:** Course hooks are illustrative. Production hooks enforce real quality gates (typecheck, lint, test on CI).
+- **Agent autonomy:** Course agents ask for confirmation often. Production agents can run more autonomously.
+- **CLAUDE.md scope:** The course uses one global file. Production uses global + per-repo + per-directory layering.

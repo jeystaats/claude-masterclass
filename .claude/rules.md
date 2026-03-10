@@ -11,7 +11,7 @@ These rules apply to every file in this project. Follow them without exception.
 ## React and Next.js
 - App Router only — no `getServerSideProps`, no `getStaticProps`
 - Server Components by default — add `"use client"` only when needed (event handlers, hooks, browser APIs)
-- Named exports only — never `export default` for components
+- Named exports for all components — exception: Next.js `page.tsx` and `layout.tsx` files require `export default`
 - One component per file
 
 ## Tailwind CSS v4
