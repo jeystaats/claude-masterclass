@@ -2,6 +2,17 @@
 set -e
 set -u
 
+# Claude Code Mastery — Environment Installer
+# https://github.com/jeystaats/claude-masterclass
+#
+# Usage: bash install.sh
+#
+# This script installs: Homebrew (macOS), Git, jq, nvm, Node.js LTS,
+# pnpm, and Claude Code CLI. It backs up existing ~/.claude/ config
+# and merges workshop settings without destroying existing hooks.
+#
+# Safe to re-run — all steps are idempotent.
+
 # =============================================================================
 # Claude Code Mastery — Installer
 # Bootstraps a macOS/Linux development environment for the course.
@@ -196,6 +207,63 @@ clone_starter_kit() {
 }
 
 # =============================================================================
+# Backup and merge functions
+# =============================================================================
+
+backup_claude_config() {
+  if [ ! -d "$HOME/.claude" ]; then
+    log_skip "No ~/.claude/ directory to back up"
+    return 0
+  fi
+
+  local timestamp
+  timestamp=$(date +%Y%m%d-%H%M%S)
+  local backup_dir="$HOME/.claude/backup-${timestamp}"
+
+  cp -r "$HOME/.claude/" "$backup_dir/"
+  # Remove nested backups from the new backup to save space
+  find "$backup_dir" -maxdepth 1 -name "backup-*" -type d -exec rm -rf {} + 2>/dev/null || true
+  log_done "Backed up ~/.claude/ -> ${backup_dir}"
+}
+
+merge_settings() {
+  local script_dir
+  script_dir="$(cd "$(dirname "$0")" && pwd)"
+  local incoming="${script_dir}/config/workshop-settings.json"
+  local existing="$HOME/.claude/settings.json"
+
+  if [ ! -f "$incoming" ]; then
+    log_skip "No workshop settings to merge (config/workshop-settings.json not found)"
+    return 0
+  fi
+
+  mkdir -p "$HOME/.claude"
+
+  if [ ! -f "$existing" ]; then
+    cp "$incoming" "$existing"
+    log_done "Created ~/.claude/settings.json from workshop template"
+    return 0
+  fi
+
+  local tmp
+  tmp=$(mktemp)
+  jq -s '
+    def deep_merge(a; b):
+      if (a|type) == "object" and (b|type) == "object" then
+        reduce ((a|keys) + (b|keys) | unique)[] as $k ({};
+          .[$k] = deep_merge(a[$k]; b[$k])
+        )
+      elif (a|type) == "array" and (b|type) == "array" then
+        (a + b | unique)
+      elif b == null then a
+      else b
+      end;
+    deep_merge(.[0]; .[1])
+  ' "$existing" "$incoming" > "$tmp" && mv "$tmp" "$existing"
+  log_done "Merged workshop settings into ~/.claude/settings.json"
+}
+
+# =============================================================================
 # Main
 # =============================================================================
 
@@ -223,13 +291,23 @@ main() {
   install_pnpm
   install_claude_code
   clone_starter_kit
-  # backup_and_merge will be added by Plan 03
+
+  log_info "Configuring Claude Code settings..."
+  backup_claude_config
+  merge_settings
 
   echo ""
   echo "=================================="
   echo "  Installation complete!"
   echo "=================================="
   echo ""
+  if [ -d "$HOME/.claude" ]; then
+    local latest_backup
+    latest_backup=$(find "$HOME/.claude" -maxdepth 1 -name "backup-*" -type d 2>/dev/null | sort | tail -1)
+    if [ -n "$latest_backup" ]; then
+      log_info "Backup: $latest_backup"
+    fi
+  fi
   log_info "Next steps:"
   log_info "  1. Run 'claude' to authenticate via browser"
   log_info "  2. cd $STARTER_DEST"
