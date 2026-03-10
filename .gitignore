@@ -48,5 +48,8 @@ next-env.d.ts
 # pnpm
 .pnpm-store/
 
+# npm lockfile (project uses pnpm)
+package-lock.json
+
 # Session context files written by start.sh — not committed
 **/.claude/session.md
