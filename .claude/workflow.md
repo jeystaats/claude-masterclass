@@ -11,26 +11,30 @@
 | Build | `pnpm build` |
 
 ## Git workflow
-- Feature branches: `feat/[description]`
-- Bug fixes: `fix/[description]`
+- Feature branches: `feat/[description]`, `fix/[description]`, `docs/[description]`
 - Never commit directly to `main` — always use a branch + PR
 - Run `pnpm typecheck` before committing
+- Commit working increments often — don't wait for "done"
 
-## Working with modules
-1. Open the module folder: `modules/NN-[slug]/`
-2. Read `README.md` for objectives
-3. Open lesson files or `exercises/` folder
-4. Use `PROGRESS.md` to track completion
+## Feature development loop
+1. Create branch: `git checkout -b feat/feature-name`
+2. Feed ticket to Claude with full context
+3. Review: `git diff` + browser test + architecture check
+4. Create PR: `gh pr create --title "feat: ..." --body "Closes #X"`
+5. Merge: `gh pr merge`
+6. Pull main: `git checkout main && git pull`
 
-## Starting a new feature
-1. Create a feature brief in `exercises/feature-brief.md` (Module 6 pattern)
-2. Ask Claude to review the brief before writing code
-3. Build one ticket at a time — verify before moving on
-4. Commit working increments with semantic commit messages
+## Planning documents
+Course planning documents live in the project root:
+- `RESEARCH.md` — market research (Module 4)
+- `docs/prd.md` — Product Requirements Document (Module 4)
+- `docs/backlog.md` — tickets and priorities (Module 4)
+- `docs/architecture.md` — tech stack and data model decisions (Module 4)
 
 ## Semantic commit format
 ```
 feat(scope): add invoice creation form
 fix(auth): resolve redirect after login
+docs: add PRD and backlog
 ```
 Types: feat, fix, refactor, docs, style, chore
