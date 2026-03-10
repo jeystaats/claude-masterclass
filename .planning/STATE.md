@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-03-10)
 
 **Core value:** A hands-on course companion that makes Claude Code Mastery lessons tangible — one command to bootstrap, module folders for organized work, global skills/agents/hooks that teach while they enforce.
-**Current focus:** Phase 5 — Scaffold and Docs
+**Current focus:** Complete — all 5 phases done
 
 ## Current Position
 
-Phase: 5 of 5 (Scaffold and Docs)
-Plan: 0 of 3 in current phase
-Status: Not started — Phase 4 complete, Phase 5 ready to plan
-Last activity: 2026-03-10 — Phase 4 executed (2 plans in 1 wave, verification passed 11/11)
+Phase: 5 of 5 (Scaffold and Docs) — COMPLETE
+Plan: 3 of 3 in current phase
+Status: All phases complete — ready for PR
+Last activity: 2026-03-10 — Phase 5 executed (3 plans in 2 waves, verification passed 11/11)
 
-Progress: [█████████░] 80%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 

@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Global Config Content** - The 5 skills, agents, and teaching hooks that install.sh deploys ✓ (2026-03-10)
 - [x] **Phase 3: Module Structure and CLAUDE.md** - 9 module folders, root CLAUDE.md, and module-scoped CLAUDE.md files ✓ (2026-03-10)
 - [x] **Phase 4: Session Launcher** - start.sh with module-context injection and progressive disclosure ✓ (2026-03-10)
-- [ ] **Phase 5: Scaffold and Docs** - Verified Next.js scaffold, cn() utility, and student-facing README
+- [x] **Phase 5: Scaffold and Docs** - Verified Next.js scaffold, cn() utility, and student-facing README ✓ (2026-03-10)
 
 ## Phase Details
 
@@ -150,4 +150,4 @@ Phases execute in order: 1 → 2 → 3 → 4 → 5
 | 2. Global Config Content | 4/4 | ✓ Complete | 2026-03-10 |
 | 3. Module Structure and CLAUDE.md | 4/4 | ✓ Complete | 2026-03-10 |
 | 4. Session Launcher | 2/2 | ✓ Complete | 2026-03-10 |
-| 5. Scaffold and Docs | 0/3 | Not started | - |
+| 5. Scaffold and Docs | 3/3 | ✓ Complete | 2026-03-10 |
